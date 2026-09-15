@@ -1,138 +1,522 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portfólio de Lucas — desenvolvimento web com uma pitada de Nordeste.">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Portfólio de Lucas — desenvolvimento web com uma pitada de Nordeste."
+  >
+
   <title>Lucas.Dev 🌵 | Portfólio</title>
+
+  <!-- Fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+  <!-- Textura da página -->
   <div class="grain"></div>
 
+
+  <!-- =========================
+       NAVBAR
+  ========================== -->
+
   <header class="nav">
-    <a class="brand" href="#inicio">LUCAS<span>.DEV</span></a>
+
+    <a class="brand" href="#inicio">
+      LUCAS<span>.DEV</span>
+    </a>
+
     <nav>
       <a href="#sobre">Sobre</a>
       <a href="#habilidades">Habilidades</a>
       <a href="#projetos">Projetos</a>
       <a href="#contato">Contato</a>
     </nav>
-    <a class="nav-btn" href="#projetos">Bora ver 👀</a>
+
+    <a class="nav-btn" href="#projetos">
+      Bora ver 👀
+    </a>
+
   </header>
 
+
   <main>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
     <section id="inicio" class="hero">
+
+      <!-- Sol -->
       <div class="sun"></div>
+
+
+      <!-- Conteúdo principal -->
       <div class="hero-copy">
-        <p class="eyebrow">📍 Nordeste, Brasil • futuro dev</p>
-        <h1>OXENTE,<br><em>TU CHEGOU!</em><br><span>MAS PRIMEIRO</span><br>VOU CODAR.</h1>
-        <p class="hero-text">Um portfólio feito no calor do Nordeste, com café, código e uma quantidade questionável de ideias. 🌵</p>
+
+        <p class="eyebrow">
+          📍 Nordeste, Brasil • futuro dev
+        </p>
+
+        <h1>
+          QUERO<br>
+          <em>CODAR</em><br>
+          <span>E CRIAR</span><br>
+          COISAS REAIS.
+        </h1>
+
+        <p class="hero-text">
+          Um portfólio feito no calor do Nordeste,
+          com café, código e uma quantidade
+          questionável de ideias. 🌵
+        </p>
+
         <div class="hero-actions">
-          <a class="btn primary" href="#projetos">Ver meus projetos</a>
-          <a class="btn ghost" href="#sobre">Quem sou eu?</a>
+
+          <a
+            class="btn primary"
+            href="#projetos"
+          >
+            Ver meus projetos
+          </a>
+
+          <a
+            class="btn ghost"
+            href="#sobre"
+          >
+            Quem sou eu?
+          </a>
+
         </div>
+
       </div>
 
-      <div class="hero-art" aria-hidden="true">
+
+      <!-- =========================
+           CENA DO DESERTO
+      ========================== -->
+
+      <div
+        class="hero-art"
+        aria-hidden="true"
+      >
+
+        <!-- Lua -->
         <div class="moon"></div>
+
+        <!-- Nuvens -->
         <div class="cloud cloud-1"></div>
         <div class="cloud cloud-2"></div>
-        <div class="cactus cactus-big"><i></i><b></b></div>
-        <div class="cactus cactus-small"><i></i></div>
+
+        <!-- Cactos -->
+        <div class="cactus cactus-big">
+          <i></i>
+          <b></b>
+        </div>
+
+        <div class="cactus cactus-small">
+          <i></i>
+        </div>
+
+        <!-- Chão -->
         <div class="ground"></div>
-        <div class="road"><span></span><span></span><span></span></div>
-        <div class="sign">EM<br>BREVE<br>✈️</div>
+
+        <!-- Estrada -->
+        <div class="road">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <!-- Placa -->
+        <div class="sign">
+          EM<br>
+          BREVE<br>
+          ✈️
+        </div>
+
       </div>
+
+
+      <!-- Poeira animada -->
+      <div
+        class="dust"
+        aria-hidden="true"
+      ></div>
+
     </section>
+
+
+
+    <!-- =========================
+         TICKER
+    ========================== -->
 
     <div class="ticker">
-      <span>OXENTE • CODA AÍ • DEV EM CONSTRUÇÃO • VAI DAR CERTO • OXE •</span>
-      <span>OXENTE • CODA AÍ • DEV EM CONSTRUÇÃO • VAI DAR CERTO • OXE •</span>
+
+      <span>
+        OXENTE • CODA AÍ • DEV EM CONSTRUÇÃO • VAI DAR CERTO • OXE •
+      </span>
+
+      <span>
+        OXENTE • CODA AÍ • DEV EM CONSTRUÇÃO • VAI DAR CERTO • OXE •
+      </span>
+
     </div>
 
-    <section id="sobre" class="section about">
-      <div class="section-tag">01 / SOBRE</div>
+
+
+    <!-- =========================
+         SOBRE
+    ========================== -->
+
+    <section
+      id="sobre"
+      class="section about"
+    >
+
+      <div class="section-tag">
+        01 / SOBRE
+      </div>
+
       <div>
-        <h2>Um cria<br>aprendendo a <em>codar.</em></h2>
-        <p>Sou estudante de programação e estou construindo minha base em desenvolvimento web. Comecei pelos fundamentos e venho avançando em HTML, CSS, JavaScript, Git e GitHub.</p>
-        <p>Meu objetivo é transformar estudo em projetos reais, montar um portfólio forte e, quem sabe, um dia usar esse código pra carimbar o passaporte. 🗿✈️</p>
-        <div class="quote">“Dev bom não nasce pronto. Nasce com um <strong>‘bora tentar’.</strong>”</div>
+
+        <h2>
+          Um Dev Jr<br>
+          aprendendo a <em>codar.</em>
+        </h2>
+
+        <p>
+          Sou estudante de programação e estou
+          construindo minha base em desenvolvimento
+          web. Comecei pelos fundamentos e venho
+          avançando em HTML, CSS, JavaScript,
+          Git e GitHub.
+        </p>
+
+        <p>
+          Meu objetivo é transformar estudo em
+          projetos reais, montar um portfólio forte
+          e, quem sabe, um dia usar esse código
+          pra carimbar o passaporte. 🗿✈️
+        </p>
+
+        <div class="quote">
+          “Dev bom não nasce pronto.
+          Nasce com um
+          <strong>‘bora tentar’.</strong>”
+        </div>
+
       </div>
+
     </section>
 
-    <section id="habilidades" class="section skills">
-      <div class="section-tag">02 / HABILIDADES</div>
-      <h2>Meu <em>arsenal</em> 🌵</h2>
+
+
+    <!-- =========================
+         HABILIDADES
+    ========================== -->
+
+    <section
+      id="habilidades"
+      class="section skills"
+    >
+
+      <div class="section-tag">
+        02 / HABILIDADES
+      </div>
+
+      <h2>
+        Meu <em>arsenal</em> 🌵
+      </h2>
+
       <div class="skill-grid">
-        <div class="skill"><b>HTML5</b><span>Estrutura</span><strong>01</strong></div>
-        <div class="skill"><b>CSS3</b><span>Estilo</span><strong>02</strong></div>
-        <div class="skill"><b>JavaScript</b><span>Interatividade</span><strong>03</strong></div>
-        <div class="skill"><b>Git</b><span>Versionamento</span><strong>04</strong></div>
-        <div class="skill"><b>GitHub</b><span>Colaboração</span><strong>05</strong></div>
-        <div class="skill"><b>Axios</b><span>APIs / HTTP</span><strong>06</strong></div>
+
+        <div class="skill">
+          <b>HTML5</b>
+          <span>Estrutura</span>
+          <strong>01</strong>
+        </div>
+
+        <div class="skill">
+          <b>CSS3</b>
+          <span>Estilo</span>
+          <strong>02</strong>
+        </div>
+
+        <div class="skill">
+          <b>JavaScript</b>
+          <span>Interatividade</span>
+          <strong>03</strong>
+        </div>
+
+        <div class="skill">
+          <b>Git</b>
+          <span>Versionamento</span>
+          <strong>04</strong>
+        </div>
+
+        <div class="skill">
+          <b>GitHub</b>
+          <span>Colaboração</span>
+          <strong>05</strong>
+        </div>
+
+        <div class="skill">
+          <b>Python</b>
+          <span>Programação</span>
+          <strong>06</strong>
+        </div>
+
       </div>
+
     </section>
 
-    <section id="projetos" class="section projects">
-      <div class="section-tag">03 / PROJETOS</div>
-      <div class="project-heading">
-        <h2>O que já<br>tá <em>saindo</em></h2>
-        <p>Essa área vai crescer junto com teu curso. Cada projeto novo entra aqui e vira munição pro teu portfólio.</p>
+
+
+    <!-- =========================
+         PROJETOS
+    ========================== -->
+
+    <section
+      id="projetos"
+      class="section projects"
+    >
+
+      <div class="section-tag">
+        03 / PROJETOS
       </div>
+
+
+      <div class="project-heading">
+
+        <h2>
+          O que já<br>
+          tá <em>saindo</em>
+        </h2>
+
+        <p>
+          Projetos desenvolvidos na prática,
+          transformando aprendizado em experiências
+          reais e construindo minha evolução como
+          desenvolvedor.
+        </p>
+
+      </div>
+
 
       <div class="project-grid">
+
+
+        <!-- PROJETO 01 -->
+
         <article class="project-card featured">
-          <div class="project-number">01</div>
-          <div class="project-icon">🌵</div>
-          <p>EM DESENVOLVIMENTO</p>
-          <h3>Projeto do Curso</h3>
-          <span>HTML • CSS • JavaScript</span>
-          <a href="#" onclick="return false;">Em breve →</a>
+
+          <div class="project-number">
+            01
+          </div>
+
+          <div class="project-icon">
+            🌵
+          </div>
+
+          <p>
+            EM DESENVOLVIMENTO
+          </p>
+
+          <h3>
+            Projeto do Curso
+          </h3>
+
+          <span>
+            HTML • CSS • JavaScript
+          </span>
+
+          <a
+            href="#"
+            onclick="return false;"
+          >
+            Em breve →
+          </a>
+
         </article>
+
+
+
+        <!-- PROJETO 02 -->
 
         <article class="project-card">
-          <div class="project-number">02</div>
-          <div class="project-icon">🐕</div>
-          <p>IDEIA</p>
-          <h3>Adotaê</h3>
-          <span>Site para adoção de pets</span>
-          <a href="#" onclick="return false;">Planejando →</a>
+
+          <div class="project-number">
+            02
+          </div>
+
+          <div class="project-icon">
+            🐕
+          </div>
+
+          <p>
+            PLANEJAMENTO
+          </p>
+
+          <h3>
+            Adotaê
+          </h3>
+
+          <span>
+            Plataforma para adoção de pets
+          </span>
+
+          <a
+            href="#"
+            onclick="return false;"
+          >
+            Em planejamento →
+          </a>
+
         </article>
 
+
       </div>
+
     </section>
+
+
+
+    <!-- =========================
+         CTA
+    ========================== -->
 
     <section class="cta">
-      <div class="stamp">OXE<br>DEU CERTO!</div>
-      <p>Tem uma ideia?</p>
-      <h2>MANDA AÍ,<br><em>VAMO FAZER.</em></h2>
-      <a class="btn primary" href="#contato">Falar comigo →</a>
+
+      <div class="stamp">
+        OXE<br>
+        DEU CERTO!
+      </div>
+
+      <p>
+        Tem uma ideia?
+      </p>
+
+      <h2>
+        MANDA AÍ,<br>
+        <em>VAMO FAZER.</em>
+      </h2>
+
+      <a
+        class="btn primary"
+        href="#contato"
+      >
+        Falar comigo →
+      </a>
+
     </section>
 
-    <section id="contato" class="section contact">
-      <div class="section-tag">04 / CONTATO</div>
-      <div>
-        <h2>Não seja<br><em>acanhado.</em></h2>
-        <p>O melhor jeito de melhorar é colocando projeto no mundo. Me chama e bora trocar ideia.</p>
-        <div class="contact-links">
-          <a href="https://github.com/" target="_blank" rel="noopener">GitHub ↗</a>
-          <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn ↗</a>
-          <a href="mailto:seuemail@email.com">E-mail ↗</a>
-        </div>
+
+
+    <!-- =========================
+         CONTATO
+    ========================== -->
+
+    <section
+      id="contato"
+      class="section contact"
+    >
+
+      <div class="section-tag">
+        04 / CONTATO
       </div>
+
+      <div>
+
+        <h2>
+          Não seja<br>
+          <em>acanhado.</em>
+        </h2>
+
+        <p>
+          O melhor jeito de melhorar é colocando
+          projeto no mundo. Me chama e bora
+          trocar ideia.
+        </p>
+
+        <div class="contact-links">
+
+          <a
+            href="https://github.com/"
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub ↗
+          </a>
+
+          <a
+            href="https://www.linkedin.com/"
+            target="_blank"
+            rel="noopener"
+          >
+            LinkedIn ↗
+          </a>
+
+          <a href="mailto:seuemail@email.com">
+            E-mail ↗
+          </a>
+
+        </div>
+
+      </div>
+
     </section>
+
   </main>
 
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
   <footer>
-    <span>© 2026 LUCAS.DEV</span>
-    <span>FEITO COM HTML, CSS, JS & CAFÉ ☕</span>
-    <span>🌵 + 🗿 + ✈️</span>
+
+    <span>
+      © 2026 LUCAS.DEV
+    </span>
+
+    <span>
+      FEITO COM HTML, CSS, JS & CAFÉ ☕
+    </span>
+
+    <span>
+      🌵 + 🗿 + ✈️
+    </span>
+
   </footer>
 
+
+
+  <!-- JavaScript -->
   <script src="script.js"></script>
+
 </body>
 </html>
