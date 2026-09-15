@@ -1,330 +1,829 @@
-// ========================================
-// LUCAS.DEV — INTERAÇÕES
-// ========================================
+/* =========================================================
+   LUCAS.DEV — JAVASCRIPT
+========================================================= */
 
-// ----------------------------------------
-// NAVBAR
-// ----------------------------------------
-const nav = document.querySelector('.nav');
+
+/* =========================================================
+   NAVBAR DINÂMICA
+========================================================= */
+
+const nav = document.querySelector(".nav");
 
 function updateNavbar() {
-    nav?.classList.toggle('scrolled', scrollY > 20);
+  if (!nav) return;
+
+  if (window.scrollY > 20) {
+    nav.classList.add("scrolled");
+  } else {
+    nav.classList.remove("scrolled");
+  }
 }
 
-addEventListener('scroll', updateNavbar, { passive: true });
+window.addEventListener("scroll", updateNavbar, {
+  passive: true
+});
+
 updateNavbar();
 
 
-// ----------------------------------------
-// MENU MOBILE
-// ----------------------------------------
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.nav-links');
+/* =========================================================
+   MENU MOBILE
+========================================================= */
+
+const menuToggle = document.querySelector(".menu-toggle");
+const navLinks = document.querySelector(".nav-links");
 
 function closeMenu() {
-    if (!navLinks || !menuToggle) return;
+  if (!navLinks || !menuToggle) return;
 
-    navLinks.classList.remove('open');
-    menuToggle.setAttribute('aria-expanded', 'false');
-    menuToggle.setAttribute('aria-label', 'Abrir menu');
-    menuToggle.textContent = '☰';
-    document.body.classList.remove('menu-open');
+  navLinks.classList.remove("open");
+
+  menuToggle.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+  menuToggle.setAttribute(
+    "aria-label",
+    "Abrir menu"
+  );
+
+  menuToggle.textContent = "☰";
+
+  document.body.classList.remove("menu-open");
 }
 
 function openMenu() {
-    if (!navLinks || !menuToggle) return;
+  if (!navLinks || !menuToggle) return;
 
-    navLinks.classList.add('open');
-    menuToggle.setAttribute('aria-expanded', 'true');
-    menuToggle.setAttribute('aria-label', 'Fechar menu');
-    menuToggle.textContent = '✕';
-    document.body.classList.add('menu-open');
+  navLinks.classList.add("open");
+
+  menuToggle.setAttribute(
+    "aria-expanded",
+    "true"
+  );
+
+  menuToggle.setAttribute(
+    "aria-label",
+    "Fechar menu"
+  );
+
+  menuToggle.textContent = "✕";
+
+  document.body.classList.add("menu-open");
 }
 
-menuToggle?.addEventListener('click', () => {
-    if (navLinks?.classList.contains('open')) {
-        closeMenu();
+if (menuToggle && navLinks) {
+
+  menuToggle.addEventListener("click", () => {
+
+    const isOpen =
+      navLinks.classList.contains("open");
+
+    if (isOpen) {
+      closeMenu();
     } else {
-        openMenu();
+      openMenu();
     }
-});
 
-navLinks?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', closeMenu);
-});
-
-addEventListener('resize', () => {
-    if (innerWidth > 900) closeMenu();
-});
+  });
 
 
-// ----------------------------------------
-// SCROLL SUAVE
-// ----------------------------------------
-document.querySelectorAll('a[href^="#"]').forEach((link) => {
-    link.addEventListener('click', (event) => {
-        const target = document.querySelector(link.getAttribute('href'));
+  navLinks.querySelectorAll("a").forEach(link => {
 
-        if (!target) return;
-
-        event.preventDefault();
-        target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
+    link.addEventListener("click", () => {
+      closeMenu();
     });
-});
+
+  });
 
 
-// ----------------------------------------
-// PARALLAX DO HERO
-// ----------------------------------------
-const hero = document.querySelector('.hero');
+  document.addEventListener("keydown", event => {
 
-hero?.addEventListener('mousemove', (event) => {
-    if (matchMedia('(hover:none)').matches) return;
+    if (event.key === "Escape") {
+      closeMenu();
+    }
 
-    const rect = hero.getBoundingClientRect();
-    const mouseX = ((event.clientX - rect.left) / rect.width - 0.5) * 18;
-    const mouseY = ((event.clientY - rect.top) / rect.height - 0.5) * 18;
-
-    hero.style.setProperty('--mouse-x', `${mouseX}px`);
-    hero.style.setProperty('--mouse-y', `${mouseY}px`);
-});
-
-hero?.addEventListener('mouseleave', () => {
-    hero.style.setProperty('--mouse-x', '0px');
-    hero.style.setProperty('--mouse-y', '0px');
-});
+  });
 
 
-// ----------------------------------------
-// ANIMAÇÕES DE ENTRADA
-// ----------------------------------------
-const revealObserver = new IntersectionObserver(
-    (entries) => {
-        entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
+  window.addEventListener("resize", () => {
 
-            entry.target.classList.add('apareceu');
-            revealObserver.unobserve(entry.target);
+    if (window.innerWidth > 900) {
+      closeMenu();
+    }
+
+  });
+
+}
+
+
+/* =========================================================
+   SCROLL SUAVE
+========================================================= */
+
+document
+  .querySelectorAll('a[href^="#"]')
+  .forEach(link => {
+
+    link.addEventListener("click", event => {
+
+      const href =
+        link.getAttribute("href");
+
+      if (!href || href === "#") {
+        return;
+      }
+
+      const target =
+        document.querySelector(href);
+
+      if (!target) {
+        return;
+      }
+
+      event.preventDefault();
+
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+    });
+
+  });
+
+
+/* =========================================================
+   PARALLAX DO DESERTO
+========================================================= */
+
+const hero =
+  document.querySelector(".hero");
+
+const isTouchDevice =
+  window.matchMedia("(hover: none)").matches;
+
+const prefersReducedMotion =
+  window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+if (
+  hero &&
+  !isTouchDevice &&
+  !prefersReducedMotion
+) {
+
+  hero.addEventListener("mousemove", event => {
+
+    const rect =
+      hero.getBoundingClientRect();
+
+    const x =
+      (event.clientX - rect.left)
+      / rect.width
+      - 0.5;
+
+    const y =
+      (event.clientY - rect.top)
+      / rect.height
+      - 0.5;
+
+    hero.style.setProperty(
+      "--mouse-x",
+      `${x * 18}px`
+    );
+
+    hero.style.setProperty(
+      "--mouse-y",
+      `${y * 18}px`
+    );
+
+  });
+
+
+  hero.addEventListener("mouseleave", () => {
+
+    hero.style.setProperty(
+      "--mouse-x",
+      "0px"
+    );
+
+    hero.style.setProperty(
+      "--mouse-y",
+      "0px"
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   REVELAÇÃO AO ROLAR
+========================================================= */
+
+const revealElements =
+  document.querySelectorAll(".reveal");
+
+if (
+  revealElements.length &&
+  "IntersectionObserver" in window
+) {
+
+  const revealObserver =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(entry => {
+
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          entry.target.classList.add(
+            "apareceu"
+          );
+
+          revealObserver.unobserve(
+            entry.target
+          );
+
         });
-    },
-    { threshold: 0.12 }
-);
 
-document.querySelectorAll('.reveal').forEach((element) => {
+      },
+      {
+        threshold: 0.12
+      }
+    );
+
+  revealElements.forEach(element => {
     revealObserver.observe(element);
+  });
+
+} else {
+
+  revealElements.forEach(element => {
+    element.classList.add("apareceu");
+  });
+
+}
+
+
+/* =========================================================
+   CARDS 3D DOS PROJETOS
+========================================================= */
+
+const cards =
+  document.querySelectorAll(
+    ".project-card"
+  );
+
+cards.forEach(card => {
+
+  card.addEventListener(
+    "mousemove",
+    event => {
+
+      if (
+        window.innerWidth <= 800 ||
+        prefersReducedMotion
+      ) {
+        return;
+      }
+
+      const rect =
+        card.getBoundingClientRect();
+
+      const x =
+        (
+          (event.clientX - rect.left)
+          / rect.width
+          - 0.5
+        ) * 5;
+
+      const y =
+        (
+          (event.clientY - rect.top)
+          / rect.height
+          - 0.5
+        ) * -5;
+
+      card.style.transform =
+        `perspective(800px)
+         rotateY(${x}deg)
+         rotateX(${y}deg)
+         translateY(-5px)`;
+
+    }
+  );
+
+
+  card.addEventListener(
+    "mouseleave",
+    () => {
+
+      card.style.transform = "";
+
+    }
+  );
+
 });
 
 
-// ----------------------------------------
-// EFEITO 3D NOS PROJETOS
-// ----------------------------------------
-document.querySelectorAll('.project-card').forEach((card) => {
-    card.addEventListener('mousemove', (event) => {
-        if (innerWidth <= 800) return;
+/* =========================================================
+   ACTIVE LINK DA NAVBAR
+========================================================= */
 
-        const rect = card.getBoundingClientRect();
-        const x = ((event.clientX - rect.left) / rect.width - 0.5) * 5;
-        const y = ((event.clientY - rect.top) / rect.height - 0.5) * -5;
+const sections =
+  document.querySelectorAll(
+    "main section[id]"
+  );
 
-        card.style.transform = `perspective(800px) rotateY(${x}deg) rotateX(${y}deg) translateY(-5px)`;
-    });
+const menuLinks =
+  document.querySelectorAll(
+    ".nav-links a"
+  );
 
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-    });
-});
+if (
+  sections.length &&
+  menuLinks.length &&
+  "IntersectionObserver" in window
+) {
 
+  const sectionObserver =
+    new IntersectionObserver(
+      entries => {
 
-// ----------------------------------------
-// LINK ATIVO DA NAVBAR
-// ----------------------------------------
-const sections = document.querySelectorAll('main section[id]');
-const links = document.querySelectorAll('.nav-links a');
+        entries.forEach(entry => {
 
-const sectionObserver = new IntersectionObserver(
-    (entries) => {
-        entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
+          if (!entry.isIntersecting) {
+            return;
+          }
 
-            links.forEach((link) => {
-                link.classList.toggle(
-                    'active',
-                    link.getAttribute('href') === `#${entry.target.id}`
-                );
-            });
+          const id =
+            entry.target.getAttribute("id");
+
+          menuLinks.forEach(link => {
+
+            link.classList.remove(
+              "active"
+            );
+
+            if (
+              link.getAttribute("href")
+              === `#${id}`
+            ) {
+
+              link.classList.add(
+                "active"
+              );
+
+            }
+
+          });
+
         });
-    },
-    { rootMargin: '-35% 0px -55% 0px' }
-);
 
-sections.forEach((section) => {
+      },
+      {
+        rootMargin:
+          "-35% 0px -55% 0px",
+
+        threshold: 0
+      }
+    );
+
+  sections.forEach(section => {
     sectionObserver.observe(section);
-});
+  });
+
+}
 
 
-// ----------------------------------------
-// DADOS DAS HABILIDADES
-// ----------------------------------------
+/* =========================================================
+   HABILIDADES — DADOS
+========================================================= */
+
 const skillData = {
-    HTML5: [
-        '01',
-        'devicon-html5-plain colored',
-        'Estrutura e semântica para páginas web.',
-        ['Estrutura web', 'Semântica', 'Em estudo']
-    ],
-    CSS3: [
-        '02',
-        'devicon-css3-plain colored',
-        'Layouts, responsividade, animações e interfaces.',
-        ['Layout', 'Responsividade', 'Em estudo']
-    ],
-    JavaScript: [
-        '03',
-        'devicon-javascript-plain colored',
-        'Interações, lógica, DOM e comportamento dinâmico nas páginas.',
-        ['DOM', 'Interações', 'Em estudo']
-    ],
-    Git: [
-        '04',
-        'devicon-git-plain colored',
-        'Controle de versão para registrar mudanças e organizar a evolução dos projetos.',
-        ['Versionamento', 'Commits', 'Em estudo']
-    ],
-    GitHub: [
-        '05',
-        'devicon-github-original',
-        'Repositórios, publicação e acompanhamento dos projetos.',
-        ['Repositórios', 'Deploy', 'Em estudo']
-    ],
-    Python: [
-        '06',
-        'devicon-python-plain colored',
-        'Base de programação, lógica e automação em Python.',
-        ['Lógica', 'Automação', 'Em estudo']
+
+  html: {
+    number: "01",
+    title: "HTML5",
+    description:
+      "Estruturação de páginas web com HTML semântico, organizado e pensado para acessibilidade.",
+    icon:
+      '<i class="devicon-html5-plain colored"></i>',
+    meta: [
+      "HTML5",
+      "Semântica",
+      "Acessibilidade"
     ]
+  },
+
+  css: {
+    number: "02",
+    title: "CSS3",
+    description:
+      "Criação de interfaces responsivas, modernas e visualmente consistentes usando CSS.",
+    icon:
+      '<i class="devicon-css3-plain colored"></i>',
+    meta: [
+      "CSS3",
+      "Responsividade",
+      "Animações"
+    ]
+  },
+
+  javascript: {
+    number: "03",
+    title: "JavaScript",
+    description:
+      "Programação para tornar páginas interativas, trabalhando com DOM, eventos e lógica.",
+    icon:
+      '<i class="devicon-javascript-plain colored"></i>',
+    meta: [
+      "JavaScript",
+      "DOM",
+      "Eventos"
+    ]
+  },
+
+  git: {
+    number: "04",
+    title: "Git",
+    description:
+      "Controle de versões para acompanhar mudanças e organizar o desenvolvimento dos projetos.",
+    icon:
+      '<i class="devicon-git-plain colored"></i>',
+    meta: [
+      "Git",
+      "Versionamento",
+      "Commits"
+    ]
+  },
+
+  github: {
+    number: "05",
+    title: "GitHub",
+    description:
+      "Uso do GitHub para armazenar projetos, acompanhar código e publicar aplicações.",
+    icon:
+      '<i class="devicon-github-original"></i>',
+    meta: [
+      "GitHub",
+      "Repositórios",
+      "Deploy"
+    ]
+  },
+
+  python: {
+    number: "06",
+    title: "Python",
+    description:
+      "Linguagem que estou estudando para evoluir na programação e futuramente trabalhar com projetos mais completos.",
+    icon:
+      '<i class="devicon-python-plain colored"></i>',
+    meta: [
+      "Python",
+      "Lógica",
+      "Em aprendizado"
+    ]
+  }
+
 };
 
 
-// ----------------------------------------
-// MODAL DAS HABILIDADES
-// ----------------------------------------
-const modal = document.querySelector('#skillModal');
-const modalIcon = document.querySelector('#skillModalIcon');
-const modalNumber = document.querySelector('#skillModalNumber');
-const modalTitle = document.querySelector('#skillModalTitle');
-const modalDescription = document.querySelector('#skillModalDescription');
-const modalMeta = document.querySelector('#skillModalMeta');
+/* =========================================================
+   MODAL DAS HABILIDADES
+========================================================= */
 
-let lastFocus = null;
+const skillModal =
+  document.querySelector(
+    "#skillModal"
+  );
 
-function openSkill(name) {
-    const data = skillData[name];
+const skillModalIcon =
+  document.querySelector(
+    "#skillModalIcon"
+  );
 
-    if (!data || !modal) return;
+const skillModalNumber =
+  document.querySelector(
+    "#skillModalNumber"
+  );
 
-    lastFocus = document.activeElement;
+const skillModalTitle =
+  document.querySelector(
+    "#skillModalTitle"
+  );
 
-    modalIcon.innerHTML = `<i class="${data[1]}" aria-hidden="true"></i>`;
-    modalNumber.textContent = `${data[0]} — HABILIDADE`;
-    modalTitle.textContent = name;
-    modalDescription.textContent = data[2];
-    modalMeta.innerHTML = data[3]
-        .map((item) => `<span>${item}</span>`)
-        .join('');
+const skillModalDescription =
+  document.querySelector(
+    "#skillModalDescription"
+  );
 
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('modal-open');
+const skillModalMeta =
+  document.querySelector(
+    "#skillModalMeta"
+  );
 
-    modal.querySelector('.skill-modal-close')?.focus();
-}
+const skillModalCloseButtons =
+  document.querySelectorAll(
+    "[data-close-skill]"
+  );
 
-function closeSkill() {
-    if (!modal) return;
-
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('modal-open');
-
-    lastFocus?.focus();
-}
+let lastFocusedSkill = null;
 
 
-document.querySelectorAll('.skill').forEach((card) => {
-    card.setAttribute('role', 'button');
-    card.setAttribute('tabindex', '0');
-    card.setAttribute(
-        'aria-label',
-        `Ver detalhes de ${card.dataset.skill}`
+function openSkillModal(skillName) {
+
+  if (!skillModal) return;
+
+  const skill =
+    skillData[skillName];
+
+  if (!skill) return;
+
+  lastFocusedSkill =
+    document.activeElement;
+
+  if (skillModalIcon) {
+    skillModalIcon.innerHTML =
+      skill.icon;
+  }
+
+  if (skillModalNumber) {
+    skillModalNumber.textContent =
+      `${skill.number} — HABILIDADE`;
+  }
+
+  if (skillModalTitle) {
+    skillModalTitle.textContent =
+      skill.title;
+  }
+
+  if (skillModalDescription) {
+    skillModalDescription.textContent =
+      skill.description;
+  }
+
+  if (skillModalMeta) {
+
+    skillModalMeta.innerHTML =
+      skill.meta
+        .map(item => `<span>${item}</span>`)
+        .join("");
+
+  }
+
+  skillModal.classList.add("open");
+
+  skillModal.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+  document.body.classList.add(
+    "modal-open"
+  );
+
+  const closeButton =
+    skillModal.querySelector(
+      ".skill-modal-close"
     );
 
-    card.addEventListener('click', () => {
-        openSkill(card.dataset.skill);
-    });
+  if (closeButton) {
+    setTimeout(() => {
+      closeButton.focus();
+    }, 50);
+  }
 
-    card.addEventListener('keydown', (event) => {
-        if (event.key !== 'Enter' && event.key !== ' ') return;
+}
+
+
+function closeSkillModal() {
+
+  if (!skillModal) return;
+
+  skillModal.classList.remove("open");
+
+  skillModal.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  document.body.classList.remove(
+    "modal-open"
+  );
+
+  if (
+    lastFocusedSkill &&
+    typeof lastFocusedSkill.focus === "function"
+  ) {
+
+    lastFocusedSkill.focus();
+
+  }
+
+  lastFocusedSkill = null;
+
+}
+
+
+/* =========================================================
+   CLIQUE NAS HABILIDADES
+========================================================= */
+
+const skillCards =
+  document.querySelectorAll(
+    ".skill[data-skill]"
+  );
+
+skillCards.forEach(card => {
+
+  const skillName =
+    card.dataset.skill;
+
+  card.setAttribute(
+    "tabindex",
+    "0"
+  );
+
+  card.setAttribute(
+    "role",
+    "button"
+  );
+
+
+  card.addEventListener(
+    "click",
+    () => {
+      openSkillModal(skillName);
+    }
+  );
+
+
+  card.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Enter" ||
+        event.key === " "
+      ) {
 
         event.preventDefault();
-        openSkill(card.dataset.skill);
-    });
-});
 
-document.querySelectorAll('[data-close-skill]').forEach((element) => {
-    element.addEventListener('click', closeSkill);
-});
+        openSkillModal(skillName);
 
+      }
 
-// ----------------------------------------
-// ESC — FECHAR MENU / MODAL
-// ----------------------------------------
-addEventListener('keydown', (event) => {
-    if (event.key !== 'Escape') return;
-
-    closeMenu();
-
-    if (modal?.classList.contains('open')) {
-        closeSkill();
     }
+  );
+
 });
 
 
-// ----------------------------------------
-// EASTER EGG — KONAMI CODE
-// ----------------------------------------
-const code = [
-    'ArrowUp',
-    'ArrowUp',
-    'ArrowDown',
-    'ArrowDown',
-    'ArrowLeft',
-    'ArrowRight',
-    'ArrowLeft',
-    'ArrowRight'
+/* =========================================================
+   FECHAR MODAL
+========================================================= */
+
+skillModalCloseButtons.forEach(
+  button => {
+
+    button.addEventListener(
+      "click",
+      closeSkillModal
+    );
+
+  }
+);
+
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key === "Escape" &&
+      skillModal &&
+      skillModal.classList.contains("open")
+    ) {
+
+      closeSkillModal();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   EASTER EGG — KONAMI
+========================================================= */
+
+const secretCode = [
+  "ArrowUp",
+  "ArrowUp",
+  "ArrowDown",
+  "ArrowDown",
+  "ArrowLeft",
+  "ArrowRight",
+  "ArrowLeft",
+  "ArrowRight"
 ];
 
-let codeIndex = 0;
+let secretIndex = 0;
 
-addEventListener('keydown', (event) => {
-    if (event.key === code[codeIndex]) {
-        codeIndex++;
+document.addEventListener(
+  "keydown",
+  event => {
 
-        if (codeIndex === code.length) {
-            document.body.classList.toggle('secret-mode');
-            codeIndex = 0;
-            console.log('🌵 Modo secreto ativado.');
-        }
+    if (
+      event.key ===
+      secretCode[secretIndex]
+    ) {
+
+      secretIndex++;
+
+      if (
+        secretIndex ===
+        secretCode.length
+      ) {
+
+        document.body.classList.toggle(
+          "secret-mode"
+        );
+
+        secretIndex = 0;
+
+        console.log(
+          "🌵 Modo secreto ativado."
+        );
+
+      }
+
     } else {
-        codeIndex = 0;
+
+      secretIndex = 0;
+
     }
-});
+
+  }
+);
 
 
-// ----------------------------------------
-// CONSOLE
-// ----------------------------------------
-console.log('%c🌵 LUCAS.DEV', 'font-size:22px;font-weight:bold;');
-console.log('%cSistema iniciado. Bora codar.', 'font-size:13px;');
+/* =========================================================
+   PERFORMANCE — TOUCH
+========================================================= */
+
+if (
+  isTouchDevice &&
+  hero
+) {
+
+  hero.style.setProperty(
+    "--mouse-x",
+    "0px"
+  );
+
+  hero.style.setProperty(
+    "--mouse-y",
+    "0px"
+  );
+
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE — REDUZIR MOVIMENTO
+========================================================= */
+
+if (prefersReducedMotion) {
+
+  document.documentElement.classList.add(
+    "reduce-motion"
+  );
+
+}
+
+
+/* =========================================================
+   CONSOLE
+========================================================= */
+
+console.log(
+  "%c🌵 LUCAS.DEV",
+  "font-size:22px;font-weight:bold;"
+);
+
+console.log(
+  "%cSistema iniciado. Bora codar.",
+  "font-size:13px;"
+);
+
+console.log(
+  "🚀 Lucas.Dev carregado com sucesso."
+);
