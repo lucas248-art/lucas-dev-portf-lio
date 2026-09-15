@@ -3211,3 +3211,26 @@ body::before {
   }
 
 }
+
+/* AJUSTE FINAL — TAMANHO DA ESTRADA */
+.hero .road {
+  left: 50%;
+  top: 66%;
+  bottom: auto;
+  width: 30%;
+  height: 34%;
+  z-index: 4;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 650px) {
+  .hero .road {
+    left: 50%;
+    top: 68%;
+    bottom: auto;
+    width: 43%;
+    height: 31%;
+    z-index: 4;
+    transform: translateX(-50%);
+  }
+}
