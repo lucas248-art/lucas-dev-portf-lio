@@ -73,8 +73,10 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
+
   pointer-events: none;
   z-index: 9999;
+
   opacity: .045;
 
   background-image:
@@ -90,6 +92,7 @@ body::before {
   position: fixed;
   top: 0;
   left: 0;
+
   width: 100%;
   height: var(--nav-height);
 
@@ -98,6 +101,7 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 30px;
 
   z-index: 500;
@@ -111,16 +115,23 @@ body::before {
 
 .nav.scrolled {
   height: 68px;
+
   background: rgba(17, 17, 15, .92);
+
   backdrop-filter: blur(14px);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, .28);
+
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, .28);
 }
 
 .brand {
   font-family: "DM Mono", monospace;
+
   font-size: 17px;
   font-weight: 500;
+
   letter-spacing: 1px;
+
   white-space: nowrap;
 
   transition:
@@ -139,6 +150,7 @@ body::before {
 .nav-links {
   display: flex;
   align-items: center;
+
   gap: 30px;
 }
 
@@ -146,8 +158,10 @@ body::before {
   position: relative;
 
   color: var(--muted);
+
   font-family: "DM Mono", monospace;
   font-size: 11px;
+
   text-transform: uppercase;
   letter-spacing: 1.2px;
 
@@ -158,6 +172,7 @@ body::before {
   content: "";
 
   position: absolute;
+
   left: 0;
   bottom: -8px;
 
@@ -186,6 +201,7 @@ body::before {
 
   font-family: "DM Mono", monospace;
   font-size: 10px;
+
   text-transform: uppercase;
   letter-spacing: 1px;
 
@@ -199,7 +215,9 @@ body::before {
 .nav-btn:hover {
   background: var(--orange);
   border-color: var(--orange);
+
   color: var(--paper);
+
   transform: translateY(-2px);
 }
 
@@ -216,6 +234,7 @@ body::before {
   color: var(--paper);
 
   cursor: pointer;
+
   font-size: 21px;
 
   transition:
@@ -227,6 +246,8 @@ body::before {
 .menu-toggle:hover {
   background: rgba(214, 93, 47, .12);
   border-color: var(--orange);
+
+  transform: translateY(-2px);
 }
 
 
@@ -238,6 +259,7 @@ body::before {
   position: relative;
 
   min-height: 100svh;
+
   height: 850px;
   max-height: 1000px;
 
@@ -267,6 +289,7 @@ body::before {
   width: min(720px, 90vw);
 
   padding-top: clamp(170px, 24vh, 245px);
+
   margin-left: 8vw;
 
   animation: heroCopy .9s ease both;
@@ -277,8 +300,10 @@ body::before {
   color: var(--orange);
 
   font-family: "DM Mono", monospace;
+
   font-size: 11px;
   font-weight: 500;
+
   letter-spacing: 2px;
 }
 
@@ -290,8 +315,11 @@ body::before {
   max-width: 850px;
 
   font-size: clamp(58px, 9vw, 125px);
+
   line-height: .86;
+
   letter-spacing: -5px;
+
   font-weight: 700;
 
   text-transform: uppercase;
@@ -315,6 +343,7 @@ body::before {
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
+
   gap: 12px;
 
   margin-top: 34px;
@@ -322,14 +351,18 @@ body::before {
 
 .btn {
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
 
   min-height: 48px;
+
   padding: 0 22px;
 
   font-family: "DM Mono", monospace;
+
   font-size: 10px;
+
   text-transform: uppercase;
   letter-spacing: 1.2px;
 
@@ -349,6 +382,7 @@ body::before {
 .btn-primary {
   background: var(--orange);
   border-color: var(--orange);
+
   color: var(--paper);
 }
 
@@ -359,6 +393,7 @@ body::before {
 
 .btn-outline {
   background: transparent;
+
   color: var(--paper);
 }
 
@@ -382,6 +417,11 @@ body::before {
   --mouse-y: 0px;
 }
 
+
+/* =========================================================
+   SOL
+========================================================= */
+
 .sun {
   position: absolute;
 
@@ -389,6 +429,7 @@ body::before {
   right: 11%;
 
   width: clamp(90px, 12vw, 170px);
+
   aspect-ratio: 1;
 
   border-radius: 50%;
@@ -413,22 +454,57 @@ body::before {
     );
 }
 
+
+/* =========================================================
+   LUA
+========================================================= */
+
 .moon {
   position: absolute;
 
-  top: 12%;
+  top: 11%;
   left: 7%;
 
-  width: 42px;
-  height: 42px;
+  width: 54px;
+  height: 54px;
 
   border-radius: 50%;
 
-  background: var(--paper);
+  background:
+    radial-gradient(
+      circle at 34% 28%,
+      rgba(255,255,255,.9) 0 5%,
+      transparent 6%
+    ),
+    radial-gradient(
+      circle at 68% 66%,
+      rgba(150,142,123,.20) 0 7%,
+      transparent 8%
+    ),
+    radial-gradient(
+      circle at 27% 67%,
+      rgba(150,142,123,.16) 0 5%,
+      transparent 6%
+    ),
+    radial-gradient(
+      circle at 70% 27%,
+      rgba(150,142,123,.13) 0 4%,
+      transparent 5%
+    ),
+    radial-gradient(
+      circle at 45% 48%,
+      #f8f1dc 0%,
+      #e7ddc4 58%,
+      #c6b99c 100%
+    );
 
-  box-shadow: 0 0 25px rgba(241, 232, 210, .12);
+  box-shadow:
+    0 0 18px rgba(241,232,210,.14),
+    0 0 45px rgba(241,232,210,.05);
 
-  opacity: .75;
+  opacity: .82;
+
+  animation: moonFloat 8s ease-in-out infinite;
 
   transform:
     translate(
@@ -436,6 +512,46 @@ body::before {
       calc(var(--mouse-y) * -.4)
     );
 }
+
+.moon::before {
+  content: "";
+
+  position: absolute;
+
+  width: 9px;
+  height: 9px;
+
+  left: 14px;
+  top: 17px;
+
+  border-radius: 50%;
+
+  background: rgba(137,128,108,.16);
+
+  box-shadow:
+    18px 17px 0 -2px rgba(137,128,108,.13),
+    25px -7px 0 -3px rgba(137,128,108,.14),
+    -3px 20px 0 -4px rgba(137,128,108,.11);
+
+  opacity: .8;
+}
+
+.moon::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 5px;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+
+/* =========================================================
+   NUVENS
+========================================================= */
 
 .cloud {
   position: absolute;
@@ -503,73 +619,134 @@ body::before {
 
   bottom: 21%;
 
-  width: 20px;
-  height: 90px;
+  width: 25px;
+  height: 108px;
 
-  border-radius: 12px 12px 4px 4px;
+  border-radius:
+    14px 14px 7px 7px;
 
   background:
     linear-gradient(
       90deg,
-      #26331f,
-      #455636,
-      #1b2619
+      #182117 0%,
+      #33432b 32%,
+      #4b5b38 52%,
+      #273521 76%,
+      #141c13 100%
     );
 
   box-shadow:
-    inset 4px 0 rgba(255,255,255,.04);
+    inset 4px 0 rgba(255,255,255,.035),
+    inset -4px 0 rgba(0,0,0,.18),
+    0 8px 18px rgba(0,0,0,.16);
 
-  animation: cactusFloat 5s ease-in-out infinite;
+  animation:
+    cactusFloat 5s ease-in-out infinite;
 }
 
-.cactus::before,
-.cactus::after,
-.cactus span::before,
+
+/* braço esquerdo */
+
+.cactus::before {
+  content: "";
+
+  position: absolute;
+
+  left: -16px;
+  bottom: 30px;
+
+  width: 18px;
+  height: 55px;
+
+  border-radius:
+    12px 12px 5px 5px;
+
+  background: inherit;
+
+  transform:
+    rotate(-18deg);
+
+  transform-origin:
+    90% 100%;
+}
+
+
+/* braço direito */
+
+.cactus::after {
+  content: "";
+
+  position: absolute;
+
+  right: -16px;
+  bottom: 46px;
+
+  width: 18px;
+  height: 48px;
+
+  border-radius:
+    12px 12px 5px 5px;
+
+  background: inherit;
+
+  transform:
+    rotate(17deg);
+
+  transform-origin:
+    10% 100%;
+}
+
+
+/* pequenas extensões */
+
+.cactus span::before {
+  content: "";
+
+  position: absolute;
+
+  left: -13px;
+  bottom: 63px;
+
+  width: 13px;
+  height: 25px;
+
+  border-radius: 9px;
+
+  background: inherit;
+
+  transform: rotate(-18deg);
+}
+
 .cactus span::after {
   content: "";
 
   position: absolute;
 
-  width: 16px;
-  height: 48px;
+  right: -13px;
+  bottom: 75px;
 
-  border-radius: 10px;
+  width: 13px;
+  height: 23px;
+
+  border-radius: 9px;
 
   background: inherit;
+
+  transform: rotate(17deg);
 }
 
-.cactus::before {
-  left: -13px;
-  bottom: 28px;
-  transform: rotate(90deg);
-}
 
-.cactus::after {
-  right: -13px;
-  bottom: 43px;
-  transform: rotate(90deg);
-}
-
-.cactus span::before {
-  left: -8px;
-  bottom: 42px;
-  height: 24px;
-}
-
-.cactus span::after {
-  right: -8px;
-  bottom: 57px;
-  height: 23px;
-}
+/* variações de profundidade */
 
 .cactus-left {
   left: 8%;
+
   transform:
     translate(
       calc(var(--mouse-x) * .6),
       calc(var(--mouse-y) * .6)
     )
-    scale(1.1);
+    scale(1.05);
 }
 
 .cactus-center {
@@ -581,9 +758,9 @@ body::before {
       calc(var(--mouse-x) * .8),
       calc(var(--mouse-y) * .8)
     )
-    scale(.72);
+    scale(.68);
 
-  opacity: .8;
+  opacity: .78;
 }
 
 .cactus-right {
@@ -595,7 +772,7 @@ body::before {
       calc(var(--mouse-x) * 1.1),
       calc(var(--mouse-y) * 1.1)
     )
-    scale(1.3);
+    scale(1.2);
 }
 
 
@@ -609,29 +786,39 @@ body::before {
   right: 22%;
   bottom: 25%;
 
-  width: 120px;
+  width: 128px;
 
-  padding: 12px 15px;
+  padding: 13px 15px;
 
-  border: 2px solid #4b3827;
+  border: 2px solid #493522;
 
-  background: #735438;
+  border-radius: 2px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #8a6745 0%,
+      #6f5034 48%,
+      #543b27 100%
+    );
 
   color: #f0d7a7;
 
   text-align: center;
+
+  box-shadow:
+    5px 7px 0 rgba(0,0,0,.22),
+    inset 0 1px rgba(255,255,255,.06);
 
   transform:
     translate(
       calc(var(--mouse-x) * 1.3),
       calc(var(--mouse-y) * 1.3)
     )
-    rotate(-2deg);
+    rotate(-2.5deg);
 
-  box-shadow:
-    5px 6px 0 rgba(0,0,0,.25);
-
-  animation: signFloat 4s ease-in-out infinite;
+  animation:
+    signFloat 4s ease-in-out infinite;
 }
 
 .sign::before {
@@ -642,22 +829,55 @@ body::before {
   left: 50%;
   top: 100%;
 
-  width: 6px;
-  height: 80px;
+  width: 5px;
+  height: 82px;
 
-  background: #493523;
+  background:
+    linear-gradient(
+      90deg,
+      #382719,
+      #59402a,
+      #302116
+    );
 
-  transform: translateX(-50%);
+  transform:
+    translateX(-50%);
+
+  box-shadow:
+    2px 0 rgba(0,0,0,.15);
+}
+
+.sign::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 7px;
+
+  border-top: 1px solid rgba(255,255,255,.045);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+
+  pointer-events: none;
 }
 
 .sign span {
+  position: relative;
+
+  z-index: 2;
+
   font-family: "DM Mono", monospace;
+
   font-size: 13px;
   font-weight: 500;
+
   letter-spacing: 2px;
 }
 
 .sign small {
+  position: relative;
+
+  z-index: 2;
+
   display: block;
 
   margin-top: 3px;
@@ -677,45 +897,116 @@ body::before {
   bottom: 0;
 
   width: 110%;
-  height: 29%;
+  height: 31%;
 
   background:
     linear-gradient(
       180deg,
-      #39271a,
-      #241a13
+      #47301e 0%,
+      #342319 38%,
+      #241a13 100%
     );
 
-  clip-path: polygon(
-    0 32%,
-    16% 22%,
-    33% 30%,
-    51% 18%,
-    70% 27%,
-    86% 17%,
-    100% 27%,
-    100% 100%,
-    0 100%
-  );
+  clip-path:
+    polygon(
+      0 29%,
+      10% 23%,
+      20% 27%,
+      31% 18%,
+      42% 25%,
+      54% 16%,
+      66% 24%,
+      78% 19%,
+      89% 25%,
+      100% 17%,
+      100% 100%,
+      0 100%
+    );
 
   z-index: -1;
 }
 
-.road {
+
+/* camada distante */
+
+.ground::before {
+  content: "";
+
   position: absolute;
 
-  left: 43%;
-  bottom: -5%;
+  left: 0;
+  top: 0;
 
-  width: 34%;
-  height: 35%;
+  width: 100%;
+  height: 45%;
 
   background:
     linear-gradient(
-      95deg,
-      transparent 0 37%,
-      rgba(201,155,97,.17) 38% 63%,
-      transparent 64%
+      180deg,
+      rgba(201,155,97,.08),
+      transparent
+    );
+
+  opacity: .8;
+}
+
+
+/* textura discreta da areia */
+
+.ground::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    radial-gradient(
+      ellipse at 20% 50%,
+      rgba(201,155,97,.06) 0 1px,
+      transparent 2px
+    ),
+    radial-gradient(
+      ellipse at 70% 65%,
+      rgba(241,232,210,.035) 0 1px,
+      transparent 2px
+    );
+
+  background-size:
+    75px 42px,
+    110px 55px;
+
+  opacity: .55;
+}
+
+
+/* estrada */
+
+.road {
+  position: absolute;
+
+  left: 40%;
+  bottom: -5%;
+
+  width: 40%;
+  height: 38%;
+
+  background:
+    linear-gradient(
+      97deg,
+      transparent 0 32%,
+      rgba(201,155,97,.08) 35%,
+      rgba(201,155,97,.18) 49%,
+      rgba(201,155,97,.08) 64%,
+      transparent 68%
+    );
+
+  clip-path:
+    polygon(
+      40% 0,
+      60% 0,
+      100% 100%,
+      0 100%
     );
 
   transform:
@@ -761,7 +1052,8 @@ body::before {
 
   opacity: .22;
 
-  animation: dustMove 8s linear infinite;
+  animation:
+    dustMove 8s linear infinite;
 }
 
 
@@ -777,12 +1069,15 @@ body::before {
 
   display: flex;
   align-items: center;
+
   gap: 12px;
 
   color: var(--muted);
 
   font-family: "DM Mono", monospace;
+
   font-size: 9px;
+
   letter-spacing: 2px;
 }
 
@@ -812,7 +1107,8 @@ body::before {
 
   background: var(--orange);
 
-  animation: scrollDot 1.8s ease-in-out infinite;
+  animation:
+    scrollDot 1.8s ease-in-out infinite;
 }
 
 
@@ -838,15 +1134,19 @@ body::before {
 
   display: flex;
   align-items: center;
+
   gap: 25px;
 
   padding: 15px 0;
 
   font-family: "DM Mono", monospace;
+
   font-size: 12px;
+
   letter-spacing: 2px;
 
-  animation: ticker 24s linear infinite;
+  animation:
+    ticker 24s linear infinite;
 }
 
 .ticker b {
@@ -860,6 +1160,7 @@ body::before {
 
 .section {
   width: min(var(--container), 90vw);
+
   margin: 0 auto;
 
   padding: 130px 0;
@@ -873,8 +1174,11 @@ body::before {
   margin-top: 17px;
 
   font-size: clamp(42px, 7vw, 82px);
+
   line-height: .92;
+
   letter-spacing: -3px;
+
   text-transform: uppercase;
 }
 
@@ -884,6 +1188,7 @@ body::before {
   color: var(--muted);
 
   font-size: 14px;
+
   line-height: 1.7;
 }
 
@@ -898,8 +1203,11 @@ body::before {
 
 .about-grid {
   display: grid;
+
   grid-template-columns: 1.15fr .85fr;
+
   gap: 100px;
+
   align-items: start;
 }
 
@@ -911,6 +1219,7 @@ body::before {
   color: var(--muted);
 
   font-size: 16px;
+
   line-height: 1.8;
 
   margin-bottom: 22px;
@@ -920,11 +1229,13 @@ body::before {
   color: var(--paper);
 
   font-size: clamp(20px, 2.2vw, 28px);
+
   line-height: 1.45;
 }
 
 .about-stats {
   display: grid;
+
   gap: 0;
 
   border-top: 1px solid var(--line);
@@ -932,6 +1243,7 @@ body::before {
 
 .stat {
   display: flex;
+
   align-items: center;
   justify-content: space-between;
 
@@ -944,6 +1256,7 @@ body::before {
   color: var(--orange);
 
   font-family: "DM Mono", monospace;
+
   font-size: 27px;
 }
 
@@ -951,9 +1264,13 @@ body::before {
   color: var(--muted);
 
   font-family: "DM Mono", monospace;
+
   font-size: 9px;
+
   line-height: 1.5;
+
   letter-spacing: 1.2px;
+
   text-align: right;
 }
 
@@ -974,6 +1291,7 @@ body::before {
 
 .skills-grid {
   display: grid;
+
   grid-template-columns: repeat(2, 1fr);
 
   border-top: 1px solid var(--line);
@@ -986,8 +1304,11 @@ body::before {
   min-height: 180px;
 
   display: grid;
+
   grid-template-columns: 45px 1fr 30px;
+
   gap: 20px;
+
   align-items: start;
 
   padding: 30px;
@@ -1014,13 +1335,16 @@ body::before {
   background: var(--orange);
 
   transform: scaleX(0);
+
   transform-origin: left;
 
-  transition: transform .35s ease;
+  transition:
+    transform .35s ease;
 }
 
 .skill:hover {
   background: rgba(214,93,47,.055);
+
   transform: translateY(-4px);
 }
 
@@ -1032,11 +1356,13 @@ body::before {
   color: var(--orange);
 
   font-family: "DM Mono", monospace;
+
   font-size: 10px;
 }
 
 .skill h3 {
   font-size: 22px;
+
   letter-spacing: -1px;
 }
 
@@ -1048,6 +1374,7 @@ body::before {
   color: var(--muted);
 
   font-size: 13px;
+
   line-height: 1.6;
 }
 
@@ -1063,7 +1390,9 @@ body::before {
 
 .skill:hover .skill-arrow {
   color: var(--orange);
-  transform: translate(3px, -3px);
+
+  transform:
+    translate(3px, -3px);
 }
 
 
@@ -1077,14 +1406,18 @@ body::before {
 
 .projects-heading {
   display: flex;
+
   justify-content: space-between;
   align-items: end;
+
   gap: 50px;
 }
 
 .projects-grid {
   display: grid;
+
   grid-template-columns: repeat(2, 1fr);
+
   gap: 22px;
 }
 
@@ -1092,6 +1425,7 @@ body::before {
   min-height: 470px;
 
   display: flex;
+
   flex-direction: column;
   justify-content: space-between;
 
@@ -1143,8 +1477,10 @@ body::before {
 .project-top,
 .project-bottom {
   display: flex;
+
   justify-content: space-between;
   align-items: center;
+
   gap: 20px;
 }
 
@@ -1153,7 +1489,9 @@ body::before {
 .project-type,
 .project-tags {
   font-family: "DM Mono", monospace;
+
   font-size: 9px;
+
   letter-spacing: 1.2px;
 }
 
@@ -1177,8 +1515,11 @@ body::before {
 
 .project-content h3 {
   font-size: clamp(40px, 5vw, 70px);
+
   line-height: .9;
+
   letter-spacing: -3px;
+
   text-transform: uppercase;
 }
 
@@ -1190,6 +1531,7 @@ body::before {
   color: var(--muted);
 
   font-size: 14px;
+
   line-height: 1.7;
 }
 
@@ -1201,7 +1543,9 @@ body::before {
 
 .project-tags {
   display: flex;
+
   flex-wrap: wrap;
+
   gap: 8px;
 }
 
@@ -1217,10 +1561,13 @@ body::before {
   color: var(--paper);
 
   font-family: "DM Mono", monospace;
+
   font-size: 9px;
+
   letter-spacing: 1px;
 
-  transition: color .25s ease;
+  transition:
+    color .25s ease;
 }
 
 .project-card:hover .project-link {
@@ -1259,18 +1606,22 @@ body::before {
   top: 50%;
 
   font-size: clamp(180px, 25vw, 360px);
+
   line-height: 1;
 
   opacity: .07;
 
-  transform: translateY(-50%);
+  transform:
+    translateY(-50%);
 }
 
 .cta-inner {
   position: relative;
+
   z-index: 2;
 
   width: min(var(--container), 90vw);
+
   margin: auto;
 }
 
@@ -1282,7 +1633,9 @@ body::before {
   margin-top: 18px;
 
   font-size: clamp(60px, 10vw, 125px);
+
   line-height: .82;
+
   letter-spacing: -5px;
 }
 
@@ -1296,16 +1649,19 @@ body::before {
   margin: 30px 0;
 
   font-size: 15px;
+
   line-height: 1.7;
 }
 
 .cta .btn {
   border-color: var(--ink);
+
   color: var(--ink);
 }
 
 .cta .btn:hover {
   background: var(--ink);
+
   color: var(--paper);
 }
 
@@ -1316,7 +1672,9 @@ body::before {
 
 .contact-grid {
   display: grid;
+
   grid-template-columns: 1fr 1fr;
+
   gap: 100px;
 }
 
@@ -1324,7 +1682,9 @@ body::before {
   max-width: 500px;
 
   font-size: clamp(24px, 3vw, 38px);
+
   line-height: 1.25;
+
   letter-spacing: -1px;
 }
 
@@ -1344,6 +1704,7 @@ body::before {
 
 .contact-link {
   display: flex;
+
   align-items: center;
   justify-content: space-between;
 
@@ -1352,7 +1713,9 @@ body::before {
   border-bottom: 1px solid var(--line);
 
   font-family: "DM Mono", monospace;
+
   font-size: 11px;
+
   letter-spacing: 1.5px;
 
   transition:
@@ -1362,18 +1725,22 @@ body::before {
 
 .contact-link strong {
   font-size: 19px;
+
   font-weight: 400;
 
-  transition: transform .25s ease;
+  transition:
+    transform .25s ease;
 }
 
 .contact-link:hover {
   padding-left: 10px;
+
   color: var(--orange);
 }
 
 .contact-link:hover strong {
-  transform: translate(5px, -5px);
+  transform:
+    translate(5px, -5px);
 }
 
 
@@ -1385,10 +1752,13 @@ body::before {
   width: min(var(--container), 90vw);
 
   margin: auto;
+
   padding: 40px 0;
 
   display: flex;
+
   justify-content: space-between;
+
   gap: 30px;
 
   border-top: 1px solid var(--line);
@@ -1400,7 +1770,9 @@ body::before {
   color: var(--paper);
 
   font-family: "DM Mono", monospace;
+
   font-size: 13px;
+
   letter-spacing: 1px;
 }
 
@@ -1416,16 +1788,21 @@ body::before {
 
 .footer-right {
   display: flex;
+
   align-items: center;
+
   gap: 25px;
 
   font-family: "DM Mono", monospace;
+
   font-size: 9px;
+
   letter-spacing: 1px;
 }
 
 .footer-right a {
-  transition: color .25s ease;
+  transition:
+    color .25s ease;
 }
 
 .footer-right a:hover {
@@ -1439,7 +1816,9 @@ body::before {
 
 .reveal {
   opacity: 0;
-  transform: translateY(45px);
+
+  transform:
+    translateY(45px);
 
   transition:
     opacity .8s ease,
@@ -1448,7 +1827,9 @@ body::before {
 
 .reveal.apareceu {
   opacity: 1;
-  transform: translateY(0);
+
+  transform:
+    translateY(0);
 }
 
 .project-card.reveal {
@@ -1481,19 +1862,27 @@ body::before {
 ========================================================= */
 
 @keyframes heroCopy {
+
   from {
     opacity: 0;
-    transform: translateY(25px);
+
+    transform:
+      translateY(25px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+
+    transform:
+      translateY(0);
   }
 }
 
+
 @keyframes sunFloat {
-  0%, 100% {
+
+  0%,
+  100% {
     transform:
       translate(var(--mouse-x), var(--mouse-y))
       translateY(0);
@@ -1506,7 +1895,22 @@ body::before {
   }
 }
 
+
+@keyframes moonFloat {
+
+  0%,
+  100% {
+    margin-top: 0;
+  }
+
+  50% {
+    margin-top: -5px;
+  }
+}
+
+
 @keyframes cloudMove {
+
   0% {
     margin-right: 0;
   }
@@ -1520,8 +1924,11 @@ body::before {
   }
 }
 
+
 @keyframes cactusFloat {
-  0%, 100% {
+
+  0%,
+  100% {
     margin-bottom: 0;
   }
 
@@ -1530,8 +1937,11 @@ body::before {
   }
 }
 
+
 @keyframes signFloat {
-  0%, 100% {
+
+  0%,
+  100% {
     margin-bottom: 0;
   }
 
@@ -1540,7 +1950,9 @@ body::before {
   }
 }
 
+
 @keyframes dustMove {
+
   from {
     background-position: 0 0;
   }
@@ -1550,24 +1962,35 @@ body::before {
   }
 }
 
+
 @keyframes ticker {
+
   from {
-    transform: translateX(0);
+    transform:
+      translateX(0);
   }
 
   to {
-    transform: translateX(-50%);
+    transform:
+      translateX(-50%);
   }
 }
 
+
 @keyframes scrollDot {
-  0%, 100% {
-    transform: translateX(0);
+
+  0%,
+  100% {
+    transform:
+      translateX(0);
+
     opacity: .5;
   }
 
   50% {
-    transform: translateX(20px);
+    transform:
+      translateX(20px);
+
     opacity: 1;
   }
 }
@@ -1587,23 +2010,29 @@ body::before {
     position: fixed;
 
     top: calc(var(--nav-height) + 8px);
+
     left: 5vw;
     right: 5vw;
 
     display: flex;
+
     flex-direction: column;
+
     align-items: stretch;
 
     padding: 15px;
 
-    background: rgba(17,17,15,.97);
+    background:
+      rgba(17,17,15,.97);
 
     border: 1px solid var(--line);
 
     opacity: 0;
+
     visibility: hidden;
 
-    transform: translateY(-12px);
+    transform:
+      translateY(-12px);
 
     transition:
       opacity .25s ease,
@@ -1613,8 +2042,11 @@ body::before {
 
   .nav-links.open {
     opacity: 1;
+
     visibility: visible;
-    transform: translateY(0);
+
+    transform:
+      translateY(0);
   }
 
   .nav-links a {
@@ -1640,11 +2072,13 @@ body::before {
   .about-grid,
   .contact-grid {
     grid-template-columns: 1fr;
+
     gap: 60px;
   }
 
   .projects-heading {
     align-items: start;
+
     flex-direction: column;
   }
 
@@ -1653,6 +2087,10 @@ body::before {
   }
 }
 
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media (max-width: 650px) {
 
@@ -1666,12 +2104,16 @@ body::before {
 
   .hero-copy {
     width: 88vw;
+
     margin-left: 6vw;
+
     padding-top: 155px;
   }
 
   .hero h1 {
-    font-size: clamp(55px, 17vw, 90px);
+    font-size:
+      clamp(55px, 17vw, 90px);
+
     letter-spacing: -4px;
   }
 
@@ -1685,35 +2127,121 @@ body::before {
 
   .btn {
     flex: 1;
+
     min-width: 145px;
   }
 
   .sun {
     top: 15%;
+
     right: -3%;
+
     width: 115px;
   }
 
+
+  /* lua mobile */
+
   .moon {
+    top: 12%;
     left: 8%;
+
+    width: 46px;
+    height: 46px;
   }
+
+
+  /* placa mobile */
 
   .sign {
-    right: 8%;
+    right: 7%;
+
     bottom: 23%;
-    transform: scale(.8) rotate(-2deg);
+
+    width: 112px;
+
+    padding: 11px 12px;
+
+    transform:
+      translate(
+        calc(var(--mouse-x) * 1.3),
+        calc(var(--mouse-y) * 1.3)
+      )
+      scale(.82)
+      rotate(-2.5deg);
   }
+
+  .sign::before {
+    height: 70px;
+  }
+
+
+  /* cacto esquerdo */
+
+  .cactus-left {
+    left: 5%;
+
+    transform:
+      translate(
+        calc(var(--mouse-x) * .5),
+        calc(var(--mouse-y) * .5)
+      )
+      scale(.82);
+  }
+
+
+  /* cacto central */
 
   .cactus-center {
-    left: 45%;
+    left: 44%;
+
+    transform:
+      translate(
+        calc(var(--mouse-x) * .7),
+        calc(var(--mouse-y) * .7)
+      )
+      scale(.56);
   }
+
+
+  /* cacto direito */
 
   .cactus-right {
-    right: -2%;
+    right: -3%;
+
+    transform:
+      translate(
+        calc(var(--mouse-x) * .9),
+        calc(var(--mouse-y) * .9)
+      )
+      scale(.95);
   }
 
+
   .ground {
-    height: 25%;
+    height: 26%;
+
+    clip-path:
+      polygon(
+        0 27%,
+        12% 21%,
+        25% 26%,
+        39% 18%,
+        52% 25%,
+        66% 17%,
+        80% 23%,
+        100% 18%,
+        100% 100%,
+        0 100%
+      );
+  }
+
+  .road {
+    left: 34%;
+
+    width: 48%;
+
+    height: 32%;
   }
 
   .scroll-indicator {
@@ -1730,6 +2258,7 @@ body::before {
 
   .section-heading h2 {
     font-size: 46px;
+
     letter-spacing: -2px;
   }
 
@@ -1740,11 +2269,13 @@ body::before {
 
   .skill {
     min-height: 150px;
+
     padding: 25px 20px;
   }
 
   .project-card {
     min-height: 420px;
+
     padding: 24px;
   }
 
@@ -1758,6 +2289,7 @@ body::before {
 
   .project-bottom {
     align-items: flex-end;
+
     flex-direction: column;
   }
 
@@ -1767,6 +2299,7 @@ body::before {
 
   .cta h2 {
     font-size: 65px;
+
     letter-spacing: -3px;
   }
 
@@ -1777,7 +2310,6 @@ body::before {
   .footer-right {
     justify-content: space-between;
   }
-
 }
 
 
@@ -1795,13 +2327,15 @@ body::before {
   *::before,
   *::after {
     animation-duration: .01ms !important;
+
     animation-iteration-count: 1 !important;
+
     transition-duration: .01ms !important;
   }
 
   .reveal {
     opacity: 1;
+
     transform: none;
   }
-
 }
