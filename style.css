@@ -3234,3 +3234,8 @@ body::before {
     transform: translateX(-50%);
   }
 }
+
+/* ESTRADA DESATIVADA */
+.hero .road {
+  display: none !important;
+}
