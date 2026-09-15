@@ -1,3144 +1,4151 @@
-/* =========================================================
-   RESET
-========================================================= */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 90px;
-}
-
-body {
-  background: var(--bg);
-  color: var(--paper);
-  font-family: "Space Grotesk", sans-serif;
-  overflow-x: hidden;
-}
-
-body.menu-open {
-  overflow: hidden;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button,
-a {
-  -webkit-tap-highlight-color: transparent;
-}
-
-button {
-  font: inherit;
-}
-
-::selection {
-  background: var(--orange);
-  color: var(--paper);
-}
-
-
-/* =========================================================
-   VARIÁVEIS
-========================================================= */
-
-:root {
-  --bg: #11110f;
-  --bg-soft: #191814;
-
-  --paper: #f1e8d2;
-  --ink: #161612;
-
-  --sand: #c99b61;
-
-  --orange: #d65d2f;
-  --orange-dark: #9e3f21;
-
-  --muted: #a89f8b;
-
-  --line: rgba(241, 232, 210, .18);
-  --line-soft: rgba(241, 232, 210, .08);
-
-  --nav-height: 78px;
-  --container: 1200px;
-}
-
-
-/* =========================================================
-   TEXTURA
-========================================================= */
-
-body::before {
-  content: "";
-
-  position: fixed;
-  inset: 0;
-
-  pointer-events: none;
-
-  z-index: 9999;
-
-  opacity: .045;
-
-  background-image:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
-}
-
-
-/* =========================================================
-   NAVBAR
-========================================================= */
-
-.nav {
-  position: fixed;
-
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: var(--nav-height);
-
-  padding: 0 5vw;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 30px;
-
-  z-index: 500;
-
-  transition:
-    background .35s ease,
-    box-shadow .35s ease,
-    height .35s ease,
-    backdrop-filter .35s ease;
-}
-
-.nav.scrolled {
-  height: 68px;
-
-  background: rgba(17, 17, 15, .92);
-
-  backdrop-filter: blur(14px);
-
-  box-shadow:
-    0 12px 35px rgba(0, 0, 0, .28);
-}
-
-.brand {
-  font-family: "DM Mono", monospace;
-
-  font-size: 17px;
-  font-weight: 500;
-
-  letter-spacing: 1px;
-
-  white-space: nowrap;
-
-  transition:
-    transform .25s ease,
-    color .25s ease;
-}
-
-.brand span {
-  color: var(--orange);
-}
-
-.brand:hover {
-  transform: translateY(-2px);
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-
-  gap: 30px;
-}
-
-.nav-links a {
-  position: relative;
-
-  color: var(--muted);
-
-  font-family: "DM Mono", monospace;
-
-  font-size: 11px;
-
-  text-transform: uppercase;
-
-  letter-spacing: 1.2px;
-
-  transition:
-    color .25s ease;
-}
-
-.nav-links a::after {
-  content: "";
-
-  position: absolute;
-
-  left: 0;
-  bottom: -8px;
-
-  width: 0;
-  height: 2px;
-
-  background: var(--orange);
-
-  transition:
-    width .25s ease;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-  color: var(--paper);
-}
-
-.nav-links a:hover::after,
-.nav-links a.active::after {
-  width: 100%;
-}
-
-.nav-btn {
-  padding: 11px 17px;
-
-  border: 1px solid var(--line);
-
-  font-family: "DM Mono", monospace;
-
-  font-size: 10px;
-
-  text-transform: uppercase;
-
-  letter-spacing: 1px;
-
-  transition:
-    background .25s ease,
-    border-color .25s ease,
-    color .25s ease,
-    transform .25s ease;
-}
-
-.nav-btn:hover {
-  background: var(--orange);
-
-  border-color: var(--orange);
-
-  color: var(--paper);
-
-  transform: translateY(-2px);
-}
-
-.menu-toggle {
-  display: none;
-
-  width: 42px;
-  height: 42px;
-
-  border: 1px solid var(--line);
-
-  border-radius: 4px;
-
-  background: transparent;
-
-  color: var(--paper);
-
-  cursor: pointer;
-
-  font-size: 21px;
-
-  transition:
-    background .25s ease,
-    border-color .25s ease,
-    transform .25s ease;
-}
-
-.menu-toggle:hover {
-  background: rgba(214, 93, 47, .12);
-
-  border-color: var(--orange);
-
-  transform: translateY(-2px);
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero {
-  position: relative;
-
-  min-height: 100svh;
-
-  height: 850px;
-  max-height: 1000px;
-
-  overflow: hidden;
-
-  background:
-    radial-gradient(
-      circle at 78% 22%,
-      rgba(201, 155, 97, .11),
-      transparent 25%
-    ),
-    radial-gradient(
-      circle at 15% 65%,
-      rgba(214, 93, 47, .045),
-      transparent 30%
-    ),
-    linear-gradient(
-      180deg,
-      #14130f 0%,
-      #191611 52%,
-      #211810 100%
-    );
-
-  isolation: isolate;
-}
-
-.hero::after {
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 1;
-
-  pointer-events: none;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(17,17,15,.12),
-      transparent 45%,
-      rgba(17,17,15,.12)
-    );
-
-  opacity: .7;
-}
-
-.hero-copy {
-  position: relative;
-
-  z-index: 20;
-
-  width: min(680px, 88vw);
-
-  padding-top: clamp(175px, 25vh, 245px);
-
-  margin-left: 8vw;
-
-  animation:
-    heroCopy .9s ease both;
-}
-
-.eyebrow,
-.section-number {
-  color: var(--orange);
-
-  font-family: "DM Mono", monospace;
-
-  font-size: 11px;
-  font-weight: 500;
-
-  letter-spacing: 2px;
-}
-
-.eyebrow {
-  margin-bottom: 22px;
-}
-
-.hero h1 {
-  max-width: 760px;
-
-  font-size:
-    clamp(56px, 8.5vw, 115px);
-
-  line-height: .88;
-
-  letter-spacing: -5px;
-
-  font-weight: 700;
-
-  text-transform: uppercase;
-}
-
-.hero h1 span {
-  color: var(--orange);
-}
-
-.hero-description {
-  max-width: 500px;
-
-  margin-top: 28px;
-
-  color: var(--muted);
-
-  font-size: 15px;
-
-  line-height: 1.7;
-}
-
-.hero-actions {
-  display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 12px;
-
-  margin-top: 30px;
-}
-
-.btn {
-  display: inline-flex;
-
-  align-items: center;
-  justify-content: center;
-
-  min-height: 48px;
-
-  padding: 0 22px;
-
-  font-family: "DM Mono", monospace;
-
-  font-size: 10px;
-
-  text-transform: uppercase;
-
-  letter-spacing: 1.2px;
-
-  border: 1px solid var(--line);
-
-  transition:
-    transform .25s ease,
-    background .25s ease,
-    border-color .25s ease,
-    color .25s ease;
-}
-
-.btn:hover {
-  transform: translateY(-3px);
-}
-
-.btn-primary {
-  background: var(--orange);
-
-  border-color: var(--orange);
-
-  color: var(--paper);
-
-  box-shadow:
-    0 10px 25px rgba(214, 93, 47, .12);
-}
-
-.btn-primary:hover {
-  background: #e36c3c;
-
-  border-color: #e36c3c;
-
-  box-shadow:
-    0 14px 30px rgba(214, 93, 47, .18);
-}
-
-.btn-outline {
-  background: rgba(17, 17, 15, .16);
-
-  color: var(--paper);
-}
-
-.btn-outline:hover {
-  border-color: var(--orange);
-
-  color: var(--orange);
-
-  background: rgba(214, 93, 47, .05);
-}
-
-
-/* =========================================================
-   CENÁRIO
-========================================================= */
-
-.hero-art {
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 2;
-
-  pointer-events: none;
-
-  --mouse-x: 0px;
-  --mouse-y: 0px;
-}
-
-
-/* =========================================================
-   SOL
-========================================================= */
-
-.sun {
-  position: absolute;
-
-  top: 13%;
-  right: 8%;
-
-  width: clamp(85px, 11vw, 155px);
-
-  aspect-ratio: 1;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle at 35% 35%,
-      #f7d69c,
-      var(--sand) 55%,
-      #8e623d
-    );
-
-  box-shadow:
-    0 0 65px rgba(201, 155, 97, .16);
-
-  animation:
-    sunFloat 6s ease-in-out infinite;
-
-  transform:
-    translate(
-      var(--mouse-x),
-      var(--mouse-y)
-    );
-}
-
-
-/* =========================================================
-   LUA
-========================================================= */
-
-.moon {
-  position: absolute;
-
-  top: 12%;
-  left: 8%;
-
-  width: 48px;
-  height: 48px;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle at 34% 28%,
-      rgba(255,255,255,.9) 0 5%,
-      transparent 6%
-    ),
-    radial-gradient(
-      circle at 68% 66%,
-      rgba(150,142,123,.20) 0 7%,
-      transparent 8%
-    ),
-    radial-gradient(
-      circle at 27% 67%,
-      rgba(150,142,123,.16) 0 5%,
-      transparent 6%
-    ),
-    radial-gradient(
-      circle at 70% 27%,
-      rgba(150,142,123,.13) 0 4%,
-      transparent 5%
-    ),
-    radial-gradient(
-      circle at 45% 48%,
-      #f8f1dc 0%,
-      #e7ddc4 58%,
-      #c6b99c 100%
-    );
-
-  box-shadow:
-    0 0 18px rgba(241,232,210,.10);
-
-  opacity: .72;
-
-  animation:
-    moonFloat 8s ease-in-out infinite;
-
-  transform:
-    translate(
-      calc(var(--mouse-x) * -.4),
-      calc(var(--mouse-y) * -.4)
-    );
-}
-
-.moon::before {
-  content: "";
-
-  position: absolute;
-
-  width: 9px;
-  height: 9px;
-
-  left: 14px;
-  top: 17px;
-
-  border-radius: 50%;
-
-  background: rgba(137,128,108,.16);
-
-  box-shadow:
-    18px 17px 0 -2px rgba(137,128,108,.13),
-    25px -7px 0 -3px rgba(137,128,108,.14),
-    -3px 20px 0 -4px rgba(137,128,108,.11);
-
-  opacity: .8;
-}
-
-.moon::after {
-  content: "";
-
-  position: absolute;
-
-  inset: 5px;
-
-  border-radius: 50%;
-
-  border: 1px solid rgba(255,255,255,.08);
-}
-
-
-/* =========================================================
-   NUVENS
-========================================================= */
-
-.cloud {
-  position: absolute;
-
-  width: 110px;
-  height: 18px;
-
-  border-radius: 50%;
-
-  background: rgba(241, 232, 210, .045);
-
-  filter: blur(1px);
-}
-
-.cloud::before,
-.cloud::after {
-  content: "";
-
-  position: absolute;
-
-  border-radius: 50%;
-
-  background: inherit;
-}
-
-.cloud::before {
-  width: 45px;
-  height: 45px;
-
-  left: 22px;
-  bottom: -3px;
-}
-
-.cloud::after {
-  width: 32px;
-  height: 32px;
-
-  left: 55px;
-  bottom: 0;
-}
-
-.cloud-1 {
-  top: 25%;
-  right: 31%;
-
-  animation:
-    cloudMove 13s linear infinite;
-}
-
-.cloud-2 {
-  top: 35%;
-  right: 8%;
-
-  transform: scale(.65);
-
-  animation:
-    cloudMove 17s linear infinite reverse;
-}
-
-
-/* =========================================================
-   CACTOS
-========================================================= */
-
-.cactus {
-  position: absolute;
-
-  bottom: 19%;
-
-  width: 25px;
-  height: 108px;
-
-  border-radius:
-    14px 14px 7px 7px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #182117 0%,
-      #33432b 32%,
-      #4b5b38 52%,
-      #273521 76%,
-      #141c13 100%
-    );
-
-  box-shadow:
-    inset 4px 0 rgba(255,255,255,.035),
-    inset -4px 0 rgba(0,0,0,.18),
-    0 8px 18px rgba(0,0,0,.16);
-
-  animation:
-    cactusFloat 5s ease-in-out infinite;
-}
-
-
-/* braço esquerdo */
-
-.cactus::before {
-  content: "";
-
-  position: absolute;
-
-  left: -16px;
-  bottom: 30px;
-
-  width: 18px;
-  height: 55px;
-
-  border-radius:
-    12px 12px 5px 5px;
-
-  background: inherit;
-
-  transform:
-    rotate(-18deg);
-
-  transform-origin:
-    90% 100%;
-}
-
-
-/* braço direito */
-
-.cactus::after {
-  content: "";
-
-  position: absolute;
-
-  right: -16px;
-  bottom: 46px;
-
-  width: 18px;
-  height: 48px;
-
-  border-radius:
-    12px 12px 5px 5px;
-
-  background: inherit;
-
-  transform:
-    rotate(17deg);
-
-  transform-origin:
-    10% 100%;
-}
-
-
-/* pequenas extensões */
-
-.cactus span::before {
-  content: "";
-
-  position: absolute;
-
-  left: -13px;
-  bottom: 63px;
-
-  width: 13px;
-  height: 25px;
-
-  border-radius: 9px;
-
-  background: inherit;
-
-  transform:
-    rotate(-18deg);
-}
-
-.cactus span::after {
-  content: "";
-
-  position: absolute;
-
-  right: -13px;
-  bottom: 75px;
-
-  width: 13px;
-  height: 23px;
-
-  border-radius: 9px;
-
-  background: inherit;
-
-  transform:
-    rotate(17deg);
-}
-
-
-/* =========================================================
-   PROFUNDIDADE DOS CACTOS
-========================================================= */
-
-.cactus-left {
-  left: 7%;
-
-  transform:
-    translate(
-      calc(var(--mouse-x) * .6),
-      calc(var(--mouse-y) * .6)
-    )
-    scale(.98);
-
-  opacity: .82;
-}
-
-.cactus-center {
-  left: 48%;
-
-  bottom: 16%;
-
-  transform:
-    translate(
-      calc(var(--mouse-x) * .8),
-      calc(var(--mouse-y) * .8)
-    )
-    scale(.64);
-
-  opacity: .60;
-}
-
-.cactus-right {
-  right: 6%;
-
-  bottom: 17%;
-
-  transform:
-    translate(
-      calc(var(--mouse-x) * 1.1),
-      calc(var(--mouse-y) * 1.1)
-    )
-    scale(1.08);
-
-  opacity: .76;
-}
-
-
-/* =========================================================
-   PLACA
-========================================================= */
-
-.sign {
-  position: absolute;
-
-  right: 19%;
-  bottom: 24%;
-
-  width: 122px;
-
-  padding: 13px 15px;
-
-  border: 2px solid #493522;
-
-  border-radius: 2px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #8a6745 0%,
-      #6f5034 48%,
-      #543b27 100%
-    );
-
-  color: #f0d7a7;
-
-  text-align: center;
-
-  box-shadow:
-    5px 7px 0 rgba(0,0,0,.22),
-    inset 0 1px rgba(255,255,255,.06);
-
-  transform:
-    translate(
-      calc(var(--mouse-x) * 1.3),
-      calc(var(--mouse-y) * 1.3)
-    )
-    rotate(-2.5deg);
-
-  animation:
-    signFloat 4s ease-in-out infinite;
-}
-
-.sign::before {
-  content: "";
-
-  position: absolute;
-
-  left: 50%;
-  top: 100%;
-
-  width: 5px;
-  height: 82px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #382719,
-      #59402a,
-      #302116
-    );
-
-  transform:
-    translateX(-50%);
-
-  box-shadow:
-    2px 0 rgba(0,0,0,.15);
-}
-
-.sign::after {
-  content: "";
-
-  position: absolute;
-
-  inset: 7px;
-
-  border-top: 1px solid rgba(255,255,255,.045);
-  border-bottom: 1px solid rgba(0,0,0,.08);
-
-  pointer-events: none;
-}
-
-.sign span {
-  position: relative;
-
-  z-index: 2;
-
-  font-family: "DM Mono", monospace;
-
-  font-size: 13px;
-  font-weight: 500;
-
-  letter-spacing: 2px;
-}
-
-.sign small {
-  position: relative;
-
-  z-index: 2;
-
-  display: block;
-
-  margin-top: 3px;
-
-  font-size: 18px;
-}
-
-
-/* =========================================================
-   CHÃO
-========================================================= */
-
-.ground {
-  position: absolute;
-
-  left: -5%;
-  bottom: 0;
-
-  width: 110%;
-  height: 30%;
-
-  background:
-    linear-gradient(
-      180deg,
-      #47301e 0%,
-      #342319 38%,
-      #241a13 100%
-    );
-
-  clip-path:
-    polygon(
-      0 29%,
-      10% 23%,
-      20% 27%,
-      31% 18%,
-      42% 25%,
-      54% 16%,
-      66% 24%,
-      78% 19%,
-      89% 25%,
-      100% 17%,
-      100% 100%,
-      0 100%
-    );
-
-  z-index: -1;
-}
-
-.ground::before {
-  content: "";
-
-  position: absolute;
-
-  left: 0;
-  top: 0;
-
-  width: 100%;
-  height: 45%;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(201,155,97,.08),
-      transparent
-    );
-
-  opacity: .8;
-}
-
-.ground::after {
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  background:
-    radial-gradient(
-      ellipse at 20% 50%,
-      rgba(201,155,97,.06) 0 1px,
-      transparent 2px
-    ),
-    radial-gradient(
-      ellipse at 70% 65%,
-      rgba(241,232,210,.035) 0 1px,
-      transparent 2px
-    );
-
-  background-size:
-    75px 42px,
-    110px 55px;
-
-  opacity: .55;
-}
-
-
-/* =========================================================
-   ESTRADA
-========================================================= */
-
-.road {
-  position: absolute;
-
-  left: 40%;
-  bottom: -5%;
-
-  width: 40%;
-  height: 37%;
-
-  background:
-    linear-gradient(
-      97deg,
-      transparent 0 32%,
-      rgba(201,155,97,.07) 35%,
-      rgba(201,155,97,.15) 49%,
-      rgba(201,155,97,.07) 64%,
-      transparent 68%
-    );
-
-  clip-path:
-    polygon(
-      40% 0,
-      60% 0,
-      100% 100%,
-      0 100%
-    );
-
-  transform:
-    translate(
-      calc(var(--mouse-x) * .4),
-      calc(var(--mouse-y) * .4)
-    );
-
-  opacity: .65;
-}
-
-
-/* =========================================================
-   POEIRA
-========================================================= */
-
-.dust,
-.dust::before,
-.dust::after {
-  position: absolute;
-
-  content: "";
-
-  pointer-events: none;
-}
-
-.dust {
-  left: 0;
-  bottom: 13%;
-
-  width: 100%;
-  height: 90px;
-
-  background-image:
-    radial-gradient(
-      circle,
-      rgba(241,232,210,.35) 0 1px,
-      transparent 2px
-    );
-
-  background-size:
-    95px 35px;
-
-  opacity: .18;
-
-  animation:
-    dustMove 8s linear infinite;
-}
-
-
-/* =========================================================
-   SCROLL
-========================================================= */
-
-.scroll-indicator {
-  position: absolute;
-
-  left: 5vw;
-  bottom: 35px;
-
-  display: flex;
-  align-items: center;
-
-  gap: 12px;
-
-  color: var(--muted);
-
-  font-family: "DM Mono", monospace;
-
-  font-size: 9px;
-
-  letter-spacing: 2px;
-
-  z-index: 30;
-}
-
-.scroll-indicator i {
-  display: block;
-
-  width: 40px;
-  height: 1px;
-
-  background: var(--line);
-
-  position: relative;
-}
-
-.scroll-indicator i::after {
-  content: "";
-
-  position: absolute;
-
-  top: -2px;
-  right: 0;
-
-  width: 5px;
-  height: 5px;
-
-  border-radius: 50%;
-
-  background: var(--orange);
-
-  animation:
-    scrollDot 1.8s ease-in-out infinite;
-}
-
-
-/* =========================================================
-   TICKER
-========================================================= */
-
-.ticker {
-  overflow: hidden;
-
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-
-  background: var(--orange);
-
-  color: var(--ink);
-
-  white-space: nowrap;
-}
-
-.ticker-track {
-  width: max-content;
-
-  display: flex;
-  align-items: center;
-
-  gap: 25px;
-
-  padding: 15px 0;
-
-  font-family: "DM Mono", monospace;
-
-  font-size: 12px;
-
-  letter-spacing: 2px;
-
-  animation:
-    ticker 24s linear infinite;
-}
-
-.ticker b {
-  font-size: 9px;
-}
-
-
-/* =========================================================
-   SEÇÕES
-========================================================= */
-
-.section {
-  width: min(var(--container), 90vw);
-
-  margin: 0 auto;
-
-  padding: 130px 0;
-}
-
-.section-heading {
-  margin-bottom: 70px;
-}
-
-.section-heading h2 {
-  margin-top: 17px;
-
-  font-size:
-    clamp(42px, 7vw, 82px);
-
-  line-height: .92;
-
-  letter-spacing: -3px;
-
-  text-transform: uppercase;
-}
-
-.section-intro {
-  max-width: 330px;
-
-  color: var(--muted);
-
-  font-size: 14px;
-
-  line-height: 1.7;
-}
-
-
-/* =========================================================
-   SOBRE
-========================================================= */
-
-.about {
-  min-height: 650px;
-}
-
-.about-grid {
-  display: grid;
-
-  grid-template-columns: 1.15fr .85fr;
-
-  gap: 100px;
-
-  align-items: start;
-}
-
-.about-text {
-  max-width: 650px;
-}
-
-.about-text p {
-  color: var(--muted);
-
-  font-size: 16px;
-
-  line-height: 1.8;
-
-  margin-bottom: 22px;
-}
-
-.about-text .about-lead {
-  color: var(--paper);
-
-  font-size:
-    clamp(20px, 2.2vw, 28px);
-
-  line-height: 1.45;
-}
-
-.about-stats {
-  display: grid;
-
-  gap: 0;
-
-  border-top: 1px solid var(--line);
-}
-
-.stat {
-  display: flex;
-
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 27px 0;
-
-  border-bottom: 1px solid var(--line);
-}
-
-.stat strong {
-  color: var(--orange);
-
-  font-family: "DM Mono", monospace;
-
-  font-size: 27px;
-}
-
-.stat span {
-  color: var(--muted);
-
-  font-family: "DM Mono", monospace;
-
-  font-size: 9px;
-
-  line-height: 1.5;
-
-  letter-spacing: 1.2px;
-
-  text-align: right;
-}
-
-
-/* =========================================================
-   HABILIDADES
-========================================================= */
-
-.skills-section {
-  background:
-    linear-gradient(
-      180deg,
-      transparent,
-      rgba(201,155,97,.035),
-      transparent
-    );
-}
-
-.skills-grid {
-  display: grid;
-
-  grid-template-columns: repeat(2, 1fr);
-
-  border-top: 1px solid var(--line);
-  border-left: 1px solid var(--line);
-}
-
-.skill {
-  position: relative;
-
-  min-height: 180px;
-
-  display: grid;
-
-  grid-template-columns: 45px 1fr 30px;
-
-  gap: 20px;
-
-  align-items: start;
-
-  padding: 30px;
-
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-
-  overflow: hidden;
-
-  transition:
-    background .35s ease,
-    transform .35s ease;
-}
-
-.skill::before {
-  content: "";
-
-  position: absolute;
-
-  inset: auto 0 0;
-
-  height: 3px;
-
-  background: var(--orange);
-
-  transform:
-    scaleX(0);
-
-  transform-origin: left;
-
-  transition:
-    transform .35s ease;
-}
-
-.skill:hover {
-  background: rgba(214,93,47,.055);
-
-  transform:
-    translateY(-4px);
-}
-
-.skill:hover::before {
-  transform:
-    scaleX(1);
-}
-
-.skill-number {
-  color: var(--orange);
-
-  font-family: "DM Mono", monospace;
-
-  font-size: 10px;
-}
-
-.skill h3 {
-  font-size: 22px;
-
-  letter-spacing: -1px;
-}
-
-.skill p {
-  max-width: 310px;
-
-  margin-top: 10px;
-
-  color: var(--muted);
-
-  font-size: 13px;
-
-  line-height: 1.6;
-}
-
-.skill-arrow {
-  color: var(--muted);
-
-  font-size: 20px;
-
-  transition:
-    color .25s ease,
-    transform .25s ease;
-}
-
-.skill:hover .skill-arrow {
-  color: var(--orange);
-
-  transform:
-    translate(3px, -3px);
-}
-
-
-/* =========================================================
-   PROJETOS
-========================================================= */
-
-.projects-section {
-  padding-bottom: 160px;
-}
-
-.projects-heading {
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: end;
-
-  gap: 50px;
-}
-
-.projects-grid {
-  display: grid;
-
-  grid-template-columns: repeat(2, 1fr);
-
-  gap: 22px;
-}
-
-.project-card {
-  min-height: 470px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: space-between;
-
-  padding: 30px;
-
-  border: 1px solid var(--line);
-
-  background:
-    radial-gradient(
-      circle at 90% 10%,
-      rgba(214,93,47,.10),
-      transparent 28%
-    ),
-    #171613;
-
-  transform-style: preserve-3d;
-
-  transition:
-    background .35s ease,
-    border-color .35s ease,
-    box-shadow .35s ease,
-    transform .35s ease;
-}
-
-.project-card:hover {
-  border-color:
-    rgba(214,93,47,.5);
-
-  background:
-    radial-gradient(
-      circle at 90% 10%,
-      rgba(214,93,47,.16),
-      transparent 32%
-    ),
-    #1b1915;
-
-  box-shadow:
-    0 30px 70px rgba(0,0,0,.25);
-}
-
-.project-featured {
-  background:
-    linear-gradient(
-      135deg,
-      rgba(214,93,47,.08),
-      transparent 60%
-    ),
-    #171613;
-}
-
-.project-top,
-.project-bottom {
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  gap: 20px;
-}
-
-.project-status,
-.project-number,
-.project-type,
-.project-tags {
-  font-family: "DM Mono", monospace;
-
-  font-size: 9px;
-
-  letter-spacing: 1.2px;
-}
-
-.project-status {
-  color: var(--orange);
-}
-
-.project-number {
-  color: var(--muted);
-}
-
-.project-content {
-  padding: 50px 0;
-}
-
-.project-type {
-  color: var(--muted);
-
-  margin-bottom: 17px;
-}
-
-.project-content h3 {
-  font-size:
-    clamp(40px, 5vw, 70px);
-
-  line-height: .9;
-
-  letter-spacing: -3px;
-
-  text-transform: uppercase;
-}
-
-.project-content > p:last-child {
-  max-width: 430px;
-
-  margin-top: 25px;
-
-  color: var(--muted);
-
-  font-size: 14px;
-
-  line-height: 1.7;
-}
-
-.project-bottom {
-  padding-top: 22px;
-
-  border-top: 1px solid var(--line);
-}
-
-.project-tags {
-  display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 8px;
-}
-
-.project-tags span {
-  padding: 7px 9px;
-
-  border: 1px solid var(--line);
-
-  color: var(--muted);
-}
-
-.project-link {
-  color: var(--paper);
-
-  font-family: "DM Mono", monospace;
-
-  font-size: 9px;
-
-  letter-spacing: 1px;
-
-  transition:
-    color .25s ease;
-}
-
-.project-card:hover .project-link {
-  color: var(--orange);
-}
-
-
-/* =========================================================
-   CTA
-========================================================= */
-
-.cta {
-  position: relative;
-
-  overflow: hidden;
-
-  padding: 130px 5vw;
-
-  background:
-    radial-gradient(
-      circle at 80% 50%,
-      rgba(241,232,210,.08),
-      transparent 25%
-    ),
-    var(--orange);
-
-  color: var(--ink);
-}
-
-.cta::before {
-  content: "→";
-
-  position: absolute;
-
-  right: 7%;
-  top: 50%;
-
-  font-size:
-    clamp(180px, 25vw, 360px);
-
-  line-height: 1;
-
-  opacity: .07;
-
-  transform:
-    translateY(-50%);
-}
-
-.cta-inner {
-  position: relative;
-
-  z-index: 2;
-
-  width: min(var(--container), 90vw);
-
-  margin: auto;
-}
-
-.cta .section-number {
-  color: rgba(22,22,18,.65);
-}
-
-.cta h2 {
-  margin-top: 18px;
-
-  font-size:
-    clamp(60px, 10vw, 125px);
-
-  line-height: .82;
-
-  letter-spacing: -5px;
-}
-
-.cta h2 span {
-  color: var(--paper);
-}
-
-.cta p:not(.section-number) {
-  max-width: 440px;
-
-  margin: 30px 0;
-
-  font-size: 15px;
-
-  line-height: 1.7;
-}
-
-.cta .btn {
-  border-color: var(--ink);
-
-  color: var(--ink);
-}
-
-.cta .btn:hover {
-  background: var(--ink);
-
-  color: var(--paper);
-}
-
-
-/* =========================================================
-   CONTATO
-========================================================= */
-
-.contact-grid {
-  display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
-  gap: 100px;
-}
-
-.contact-copy p {
-  max-width: 500px;
-
-  font-size:
-    clamp(24px, 3vw, 38px);
-
-  line-height: 1.25;
-
-  letter-spacing: -1px;
-}
-
-.contact-copy span {
-  display: block;
-
-  margin-top: 25px;
-
-  color: var(--muted);
-
-  font-size: 13px;
-}
-
-.contact-links {
-  border-top: 1px solid var(--line);
-}
-
-.contact-link {
-  display: flex;
-
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 24px 0;
-
-  border-bottom: 1px solid var(--line);
-
-  font-family: "DM Mono", monospace;
-
-  font-size: 11px;
-
-  letter-spacing: 1.5px;
-
-  transition:
-    color .25s ease,
-    padding .25s ease;
-}
-
-.contact-link strong {
-  font-size: 19px;
-
-  font-weight: 400;
-
-  transition:
-    transform .25s ease;
-}
-
-.contact-link:hover {
-  padding-left: 10px;
-
-  color: var(--orange);
-}
-
-.contact-link:hover strong {
-  transform:
-    translate(5px, -5px);
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-.footer {
-  width: min(var(--container), 90vw);
-
-  margin: auto;
-
-  padding: 40px 0;
-
-  display: flex;
-
-  justify-content: space-between;
-
-  gap: 30px;
-
-  border-top: 1px solid var(--line);
-
-  color: var(--muted);
-}
-
-.footer strong {
-  color: var(--paper);
-
-  font-family: "DM Mono", monospace;
-
-  font-size: 13px;
-
-  letter-spacing: 1px;
-}
-
-.footer strong span {
-  color: var(--orange);
-}
-
-.footer p {
-  margin-top: 8px;
-
-  font-size: 11px;
-}
-
-.footer-right {
-  display: flex;
-
-  align-items: center;
-
-  gap: 25px;
-
-  font-family: "DM Mono", monospace;
-
-  font-size: 9px;
-
-  letter-spacing: 1px;
-}
-
-.footer-right a {
-  transition:
-    color .25s ease;
-}
-
-.footer-right a:hover {
-  color: var(--orange);
-}
-
-
-/* =========================================================
-   REVEAL
-========================================================= */
-
-.reveal {
-  opacity: 0;
-
-  transform:
-    translateY(45px);
-
-  transition:
-    opacity .8s ease,
-    transform .8s cubic-bezier(.2,.8,.2,1);
-}
-
-.reveal.apareceu {
-  opacity: 1;
-
-  transform:
-    translateY(0);
-}
-
-.project-card.reveal {
-  transform:
-    translateY(45px)
-    scale(.97);
-}
-
-.project-card.reveal.apareceu {
-  transform:
-    translateY(0)
-    scale(1);
-}
-
-.skill.reveal {
-  transform:
-    translateY(35px)
-    scale(.97);
-}
-
-.skill.reveal.apareceu {
-  transform:
-    translateY(0)
-    scale(1);
-}
-
-
-/* =========================================================
-   ANIMAÇÕES
-========================================================= */
-
-@keyframes heroCopy {
-
-  from {
-    opacity: 0;
-
-    transform:
-      translateY(25px);
-  }
-
-  to {
-    opacity: 1;
-
-    transform:
-      translateY(0);
-  }
-}
-
-@keyframes sunFloat {
-
-  0%,
-  100% {
-    transform:
-      translate(
-        var(--mouse-x),
-        var(--mouse-y)
-      )
-      translateY(0);
-  }
-
-  50% {
-    transform:
-      translate(
-        var(--mouse-x),
-        var(--mouse-y)
-      )
-      translateY(-10px);
-  }
-}
-
-@keyframes moonFloat {
-
-  0%,
-  100% {
-    margin-top: 0;
-  }
-
-  50% {
-    margin-top: -5px;
-  }
-}
-
-@keyframes cloudMove {
-
-  0% {
-    margin-right: 0;
-  }
-
-  50% {
-    margin-right: 35px;
-  }
-
-  100% {
-    margin-right: 0;
-  }
-}
-
-@keyframes cactusFloat {
-
-  0%,
-  100% {
-    margin-bottom: 0;
-  }
-
-  50% {
-    margin-bottom: 3px;
-  }
-}
-
-@keyframes signFloat {
-
-  0%,
-  100% {
-    margin-bottom: 0;
-  }
-
-  50% {
-    margin-bottom: 5px;
-  }
-}
-
-@keyframes dustMove {
-
-  from {
-    background-position:
-      0 0;
-  }
-
-  to {
-    background-position:
-      190px 0;
-  }
-}
-
-@keyframes ticker {
-
-  from {
-    transform:
-      translateX(0);
-  }
-
-  to {
-    transform:
-      translateX(-50%);
-  }
-}
-
-@keyframes scrollDot {
-
-  0%,
-  100% {
-    transform:
-      translateX(0);
-
-    opacity: .5;
-  }
-
-  50% {
-    transform:
-      translateX(20px);
-
-    opacity: 1;
-  }
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 900px) {
-
-  .nav {
-    padding: 0 5vw;
-  }
-
-  .nav-links {
-    position: fixed;
-
-    top: calc(var(--nav-height) + 8px);
-
-    left: 5vw;
-    right: 5vw;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: stretch;
-
-    padding: 15px;
-
-    background:
-      rgba(17,17,15,.97);
-
-    border: 1px solid var(--line);
-
-    opacity: 0;
-
-    visibility: hidden;
-
-    transform:
-      translateY(-12px);
-
-    transition:
-      opacity .25s ease,
-      transform .25s ease,
-      visibility .25s ease;
-  }
-
-  .nav-links.open {
-    opacity: 1;
-
-    visibility: visible;
-
-    transform:
-      translateY(0);
-  }
-
-  .nav-links a {
-    padding: 15px 10px;
-  }
-
-  .nav-links a::after {
-    display: none;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-
-  .nav-btn {
-    display: none;
-  }
-
-  .hero-copy {
-    margin-left: 6vw;
-  }
-
-  .about-grid,
-  .contact-grid {
-    grid-template-columns: 1fr;
-
-    gap: 60px;
-  }
-
-  .projects-heading {
-    align-items: start;
-
-    flex-direction: column;
-  }
-
-  .project-card {
-    min-height: 420px;
-  }
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 650px) {
-
-  :root {
-    --nav-height: 70px;
-  }
-
-  /* =========================
-     HERO
-  ========================== */
-
-  .hero {
-    min-height: 100svh;
-
-    height: 760px;
-
-    max-height: none;
-  }
-
-  .hero::after {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(17,17,15,.05),
-        transparent 45%,
-        rgba(17,17,15,.14)
-      );
-  }
-
-  .hero-copy {
-    width: 88vw;
-
-    margin-left: 6vw;
-
-    padding-top: 150px;
-  }
-
-  .eyebrow {
-    margin-bottom: 18px;
-
-    font-size: 10px;
-
-    letter-spacing: 1.7px;
-  }
-
-  .hero h1 {
-    max-width: 100%;
-
-    font-size:
-      clamp(48px, 15.5vw, 78px);
-
-    line-height: .9;
-
-    letter-spacing: -3.5px;
-  }
-
-  .hero-description {
-    max-width: 92%;
-
-    margin-top: 25px;
-
-    font-size: 14px;
-
-    line-height: 1.65;
-  }
-
-  .hero-actions {
-    width: 100%;
-
-    gap: 10px;
-
-    margin-top: 28px;
-  }
-
-  .btn {
-    flex: 1;
-
-    min-width: 0;
-
-    min-height: 47px;
-
-    padding: 0 13px;
-
-    font-size: 9px;
-
-    letter-spacing: 1px;
-  }
-
-
-  /* =========================
-     CENÁRIO
-  ========================== */
-
-  .sun {
-    top: 17%;
-
-    right: -7%;
-
-    width: 105px;
-
-    opacity: .78;
-  }
-
-  .moon {
-    top: 11%;
-
-    left: 9%;
-
-    width: 43px;
-    height: 43px;
-
-    opacity: .58;
-  }
-
-  .cloud-1 {
-    top: 27%;
-
-    right: 28%;
-
-    transform:
-      scale(.7);
-
-    opacity: .55;
-  }
-
-  .cloud-2 {
-    top: 37%;
-
-    right: -4%;
-
-    transform:
-      scale(.48);
-
-    opacity: .38;
-  }
-
-
-  /* =========================
-     CACTOS
-  ========================== */
-
-  .cactus {
-    bottom: 18%;
-
-    width: 22px;
-    height: 92px;
-
-    opacity: .70;
-  }
-
-  .cactus-left {
-    left: 1%;
-
-    transform:
-      translate(
-        calc(var(--mouse-x) * .4),
-        calc(var(--mouse-y) * .4)
-      )
-      scale(.72);
-  }
-
-  .cactus-center {
-    left: 48%;
-
-    bottom: 15%;
-
-    transform:
-      translate(
-        calc(var(--mouse-x) * .5),
-        calc(var(--mouse-y) * .5)
-      )
-      scale(.46);
-
-    opacity: .40;
-  }
-
-  .cactus-right {
-    right: -6%;
-
-    bottom: 17%;
-
-    transform:
-      translate(
-        calc(var(--mouse-x) * .6),
-        calc(var(--mouse-y) * .6)
-      )
-      scale(.78);
-
-    opacity: .58;
-  }
-
-
-  /* =========================
-     PLACA
-  ========================== */
-
-  .sign {
-    right: 10%;
-
-    bottom: 21%;
-
-    width: 103px;
-
-    padding: 10px 9px;
-
-    transform:
-      translate(
-        calc(var(--mouse-x) * 1.1),
-        calc(var(--mouse-y) * 1.1)
-      )
-      scale(.74)
-      rotate(-2deg);
-
-    opacity: .76;
-  }
-
-  .sign span {
-    font-size: 12px;
-
-    letter-spacing: 1.7px;
-  }
-
-  .sign small {
-    font-size: 16px;
-  }
-
-  .sign::before {
-    height: 68px;
-  }
-
-
-  /* =========================
-     CHÃO
-  ========================== */
-
-  .ground {
-    height: 25%;
-
-    clip-path:
-      polygon(
-        0 30%,
-        12% 24%,
-        24% 28%,
-        38% 20%,
-        51% 27%,
-        64% 19%,
-        78% 25%,
-        100% 20%,
-        100% 100%,
-        0 100%
-      );
-  }
-
-  .road {
-    left: 37%;
-
-    width: 42%;
-
-    height: 30%;
-
-    opacity: .50;
-  }
-
-  .dust {
-    bottom: 13%;
-
-    opacity: .12;
-  }
-
-  .scroll-indicator {
-    left: 6vw;
-
-    bottom: 20px;
-  }
-
-
-  /* =========================
-     RESTANTE
-  ========================== */
-
-  .section {
-    padding: 90px 0;
-  }
-
-  .section-heading {
-    margin-bottom: 45px;
-  }
-
-  .section-heading h2 {
-    font-size: 46px;
-
-    letter-spacing: -2px;
-  }
-
-  .skills-grid,
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .skill {
-    min-height: 150px;
-
-    padding: 25px 20px;
-  }
-
-  .project-card {
-    min-height: 420px;
-
-    padding: 24px;
-  }
-
-  .project-content {
-    padding: 40px 0;
-  }
-
-  .project-content h3 {
-    font-size: 52px;
-  }
-
-  .project-bottom {
-    align-items: flex-end;
-
-    flex-direction: column;
-  }
-
-  .cta {
-    padding: 100px 5vw;
-  }
-
-  .cta h2 {
-    font-size: 65px;
-
-    letter-spacing: -3px;
-  }
-
-  .footer {
-    flex-direction: column;
-  }
-
-  .footer-right {
-    justify-content: space-between;
-  }
-}
-
-
-/* =========================================================
-   MOBILE PEQUENO
-========================================================= */
-
-@media (max-width: 380px) {
-
-  .hero {
-    height: 730px;
-  }
-
-  .hero-copy {
-    padding-top: 140px;
-  }
-
-  .hero h1 {
-    font-size: 47px;
-
-    letter-spacing: -3px;
-  }
-
-  .hero-description {
-    font-size: 13px;
-
-    max-width: 95%;
-  }
-
-  .hero-actions {
-    flex-direction: column;
-  }
-
-  .btn {
-    width: 100%;
-  }
-
-  .sun {
-    width: 88px;
-
-    right: -5%;
-  }
-
-  .moon {
-    width: 38px;
-    height: 38px;
-  }
-
-  .sign {
-    right: 7%;
-
-    bottom: 20%;
-
-    transform:
-      translate(
-        calc(var(--mouse-x) * 1.1),
-        calc(var(--mouse-y) * 1.1)
-      )
-      scale(.64)
-      rotate(-2deg);
-  }
-
-  .section-heading h2 {
-    font-size: 42px;
-  }
-
-  .project-content h3 {
-    font-size: 47px;
-  }
-}
-
-
-/* =========================================================
-   ACESSIBILIDADE
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: .01ms !important;
-
-    animation-iteration-count: 1 !important;
-
-    transition-duration: .01ms !important;
-  }
-
-  .reveal {
-    opacity: 1;
-
-    transform: none;
-  }
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Portfólio de Lucas — desenvolvedor em formação, criando projetos para a web com HTML, CSS, JavaScript e Python."
+  >
+
+  <meta
+    name="theme-color"
+    content="#11110f"
+  >
+
+  <title>Lucas.Dev — Portfólio de Desenvolvedor</title>
+
+  <!-- FONTES -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- ÍCONES DAS TECNOLOGIAS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+  >
+
+
+  <!-- =====================================================
+       CSS
+  ====================================================== -->
+
+  <style>
+
+    /* =====================================================
+       RESET
+    ====================================================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-/* =========================================================
-   AJUSTES FINAIS — CENÁRIO + SKILLS
-========================================================= */
+    html {
+      scroll-behavior: smooth;
+    }
 
-/* =========================
-   HIERARQUIA DO CENÁRIO
-========================== */
+    body {
+      min-height: 100vh;
+      background: #11110f;
+      color: #f1e8d2;
+      font-family: "Space Grotesk", sans-serif;
+      overflow-x: hidden;
+    }
 
-.hero-art {
-  z-index: 2;
-}
+    body.menu-open {
+      overflow: hidden;
+    }
 
-/* O chão fica dentro do cenário, mas atrás dos elementos */
-.ground {
-  z-index: 0;
-}
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-/* Estrada acima do chão */
-.road {
-  z-index: 1;
-}
-
-/* Elementos do cenário acima do chão */
-.cactus,
-.sign,
-.dust {
-  z-index: 3;
-}
-
-/* Sol, lua e nuvens continuam no céu */
-.sun,
-.moon,
-.cloud {
-  z-index: 1;
-}
+    button {
+      font: inherit;
+    }
 
 
-/* =========================
-   CACTOS — FIXOS NO CHÃO
-========================== */
+    /* =====================================================
+       VARIÁVEIS
+    ====================================================== */
 
-.cactus {
-  animation: none;
-  transform-origin: bottom center;
+    :root {
+      --bg: #11110f;
+      --bg-soft: #191814;
 
-  /* evita qualquer aparência de flutuação */
-  margin-bottom: 0 !important;
+      --paper: #f1e8d2;
+      --ink: #161612;
 
-  transition:
-    filter .3s ease,
-    opacity .3s ease;
-}
+      --sand: #c99b61;
 
-.cactus-left {
-  bottom: 19%;
-}
+      --orange: #d65d2f;
+      --orange-dark: #9e3f21;
 
-.cactus-center {
-  bottom: 16%;
-}
+      --muted: #a89f8b;
 
-.cactus-right {
-  bottom: 17%;
-}
+      --line: rgba(241, 232, 210, .18);
+      --line-soft: rgba(241, 232, 210, .08);
+
+      --mouse-x: 0px;
+      --mouse-y: 0px;
+    }
 
 
-/* =========================
-   CACTOS — MAIS NATURAIS
-========================== */
+    /* =====================================================
+       TEXTURA
+    ====================================================== */
 
-.cactus::before,
-.cactus::after,
-.cactus span::before,
-.cactus span::after {
-  transition:
-    filter .3s ease;
-}
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: .035;
 
-.cactus:hover {
-  filter:
-    brightness(1.08);
-}
+      background-image:
+        radial-gradient(
+          rgba(255,255,255,.8) .5px,
+          transparent .5px
+        );
+
+      background-size: 5px 5px;
+    }
 
 
-/* =========================
-   ESTRADA — MAIS VISÍVEL
-========================== */
+    /* =====================================================
+       NAVBAR
+    ====================================================== */
 
-.road {
-  pointer-events: none;
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
 
-  background:
-    linear-gradient(
-      97deg,
-      transparent 0 28%,
-      rgba(201,155,97,.045) 31%,
-      rgba(201,155,97,.10) 43%,
-      rgba(241,232,210,.12) 50%,
-      rgba(201,155,97,.10) 57%,
-      rgba(201,155,97,.045) 69%,
-      transparent 72%
+      width: 100%;
+      height: 76px;
+
+      padding: 0 5vw;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      z-index: 500;
+
+      border-bottom: 1px solid transparent;
+
+      transition:
+        background .35s ease,
+        border-color .35s ease,
+        backdrop-filter .35s ease;
+    }
+
+    .nav.scrolled {
+      background: rgba(17,17,15,.82);
+      border-color: var(--line-soft);
+      backdrop-filter: blur(14px);
+    }
+
+    .brand {
+      font-family: "DM Mono", monospace;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: -.04em;
+    }
+
+    .brand span,
+    .footer strong span {
+      color: var(--orange);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      position: relative;
+
+      font-family: "DM Mono", monospace;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+
+      color: var(--muted);
+
+      transition: color .25s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+
+      position: absolute;
+      left: 0;
+      bottom: -7px;
+
+      width: 0;
+      height: 1px;
+
+      background: var(--orange);
+
+      transition: width .25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--paper);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-btn {
+      padding: 11px 17px;
+
+      border: 1px solid var(--line);
+
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+
+      transition:
+        background .25s ease,
+        color .25s ease,
+        border-color .25s ease;
+    }
+
+    .nav-btn:hover {
+      background: var(--paper);
+      color: var(--ink);
+      border-color: var(--paper);
+    }
+
+    .menu-toggle {
+      display: none;
+
+      width: 42px;
+      height: 42px;
+
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--paper);
+
+      cursor: pointer;
+    }
+
+
+    /* =====================================================
+       HERO
+    ====================================================== */
+
+    .hero {
+      position: relative;
+
+      min-height: 800px;
+      height: 100vh;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          180deg,
+          #14130f 0%,
+          #1a1711 42%,
+          #251b12 72%,
+          #332015 100%
+        );
+    }
+
+    .hero::after {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      pointer-events: none;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(17,17,15,.55),
+          transparent 55%
+        );
+
+      z-index: 6;
+    }
+
+    .hero-copy {
+      position: absolute;
+
+      top: 50%;
+      left: 8vw;
+
+      transform: translateY(-45%);
+
+      width: min(600px, 80vw);
+
+      z-index: 20;
+    }
+
+    .eyebrow,
+    .section-number {
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      letter-spacing: .14em;
+      color: var(--orange);
+    }
+
+    .eyebrow {
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(58px, 8vw, 120px);
+      line-height: .88;
+      letter-spacing: -.075em;
+      font-weight: 700;
+    }
+
+    .hero h1 span {
+      color: var(--orange);
+    }
+
+    .hero-description {
+      max-width: 480px;
+
+      margin-top: 28px;
+
+      color: var(--muted);
+
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      min-height: 48px;
+      padding: 0 22px;
+
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+
+      border: 1px solid var(--line);
+
+      transition:
+        transform .25s ease,
+        background .25s ease,
+        color .25s ease,
+        border-color .25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: var(--paper);
+      border-color: var(--orange);
+    }
+
+    .btn-primary:hover {
+      background: var(--orange-dark);
+      border-color: var(--orange-dark);
+    }
+
+    .btn-outline {
+      color: var(--paper);
+    }
+
+    .btn-outline:hover {
+      background: var(--paper);
+      color: var(--ink);
+      border-color: var(--paper);
+    }
+
+
+    /* =====================================================
+       CENÁRIO
+    ====================================================== */
+
+    .hero-art {
+      position: absolute;
+      inset: 0;
+
+      pointer-events: none;
+
+      --parallax-x: var(--mouse-x);
+      --parallax-y: var(--mouse-y);
+
+      z-index: 2;
+    }
+
+
+    /* =====================================================
+       SOL
+    ====================================================== */
+
+    .sun {
+      position: absolute;
+
+      width: clamp(100px, 13vw, 190px);
+      aspect-ratio: 1;
+
+      top: 15%;
+      right: 16%;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle at 35% 30%,
+          #ffd99c 0%,
+          #eaa15d 48%,
+          #d65d2f 100%
+        );
+
+      box-shadow:
+        0 0 60px rgba(214,93,47,.18);
+
+      transform:
+        translate(
+          calc(var(--mouse-x) * .25),
+          calc(var(--mouse-y) * .25)
+        );
+
+      animation: sunFloat 6s ease-in-out infinite;
+    }
+
+
+    /* =====================================================
+       LUA
+    ====================================================== */
+
+    .moon {
+      position: absolute;
+
+      width: 55px;
+      height: 55px;
+
+      top: 17%;
+      left: 42%;
+
+      border-radius: 50%;
+
+      background: #e9dfc8;
+
+      box-shadow:
+        0 0 30px rgba(241,232,210,.08);
+
+      transform:
+        translate(
+          calc(var(--mouse-x) * .5),
+          calc(var(--mouse-y) * .5)
+        );
+
+      animation: moonFloat 7s ease-in-out infinite;
+    }
+
+    .moon::after {
+      content: "";
+
+      position: absolute;
+
+      width: 48px;
+      height: 48px;
+
+      top: -5px;
+      left: 12px;
+
+      border-radius: 50%;
+
+      background: #17150f;
+    }
+
+
+    /* =====================================================
+       NUVENS
+    ====================================================== */
+
+    .cloud {
+      position: absolute;
+
+      width: 100px;
+      height: 24px;
+
+      border-radius: 30px;
+
+      background: rgba(241,232,210,.07);
+
+      filter: blur(.2px);
+
+      animation: cloudMove 16s linear infinite;
+    }
+
+    .cloud::before,
+    .cloud::after {
+      content: "";
+
+      position: absolute;
+
+      border-radius: 50%;
+
+      background: inherit;
+    }
+
+    .cloud::before {
+      width: 42px;
+      height: 42px;
+      left: 18px;
+      bottom: 0;
+    }
+
+    .cloud::after {
+      width: 30px;
+      height: 30px;
+      right: 15px;
+      bottom: 0;
+    }
+
+    .cloud-1 {
+      top: 24%;
+      left: 12%;
+    }
+
+    .cloud-2 {
+      top: 32%;
+      right: 7%;
+      transform: scale(.7);
+      opacity: .55;
+      animation-delay: -7s;
+    }
+
+
+    /* =====================================================
+       CACTOS
+    ====================================================== */
+
+    .cactus {
+      position: absolute;
+
+      width: 42px;
+      height: 155px;
+
+      bottom: 17%;
+
+      border-radius: 22px 22px 6px 6px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #314331,
+          #596b46 48%,
+          #263625
+        );
+
+      box-shadow:
+        inset -7px 0 0 rgba(0,0,0,.13);
+
+      transform:
+        translate(
+          var(--mouse-x),
+          var(--mouse-y)
+        );
+
+      /*
+        IMPORTANTE:
+        sem cactusFloat.
+        Os cactos ficam plantados no chão.
+      */
+      animation: none;
+
+      transition: transform .2s ease;
+    }
+
+    .cactus::before,
+    .cactus::after {
+      content: "";
+
+      position: absolute;
+
+      width: 23px;
+      height: 70px;
+
+      border-radius: 15px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #314331,
+          #596b46,
+          #263625
+        );
+    }
+
+    .cactus::before {
+      left: -18px;
+      top: 48px;
+    }
+
+    .cactus::after {
+      right: -18px;
+      top: 82px;
+      height: 58px;
+    }
+
+    .cactus span {
+      position: absolute;
+
+      left: 8px;
+      top: 0;
+
+      width: 7px;
+      height: 100%;
+
+      opacity: .3;
+
+      background:
+        repeating-linear-gradient(
+          180deg,
+          transparent 0 13px,
+          #d5bd91 14px 16px
+        );
+    }
+
+    .cactus-left {
+      left: 7%;
+      bottom: 17%;
+
+      transform:
+        translate(
+          calc(var(--mouse-x) * .35),
+          calc(var(--mouse-y) * .35)
+        )
+        scale(.98);
+
+      opacity: .82;
+    }
+
+    .cactus-center {
+      left: 48%;
+      bottom: 15%;
+
+      transform:
+        translate(
+          calc(var(--mouse-x) * .55),
+          calc(var(--mouse-y) * .55)
+        )
+        scale(.64);
+
+      opacity: .58;
+    }
+
+    .cactus-right {
+      right: 6%;
+      bottom: 17%;
+
+      transform:
+        translate(
+          calc(var(--mouse-x) * .25),
+          calc(var(--mouse-y) * .25)
+        )
+        scale(1.08);
+
+      opacity: .76;
+    }
+
+
+    /* =====================================================
+       PLACA
+    ====================================================== */
+
+    .sign {
+      position: absolute;
+
+      right: 19%;
+      bottom: 25%;
+
+      width: 122px;
+      height: 67px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+
+      border: 4px solid #432719;
+
+      border-radius: 5px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #9b6638,
+          #744625 55%,
+          #4f2c1a
+        );
+
+      color: #f1dfbd;
+
+      box-shadow:
+        0 10px 20px rgba(0,0,0,.2);
+
+      transform:
+        translate(
+          calc(var(--mouse-x) * .7),
+          calc(var(--mouse-y) * .7)
+        );
+
+      transition: transform .2s ease;
+
+      z-index: 7;
+    }
+
+    .sign::after {
+      content: "";
+
+      position: absolute;
+
+      left: 50%;
+      top: 100%;
+
+      width: 8px;
+      height: 90px;
+
+      transform: translateX(-50%);
+
+      background:
+        linear-gradient(
+          90deg,
+          #3e2417,
+          #744625,
+          #321b11
+        );
+
+      z-index: -1;
+    }
+
+    .sign span {
+      font-family: "DM Mono", monospace;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .sign small {
+      font-size: 17px;
+    }
+
+
+    /* =====================================================
+       CHÃO
+    ====================================================== */
+
+    .ground {
+      position: absolute;
+
+      left: -5%;
+      right: -5%;
+      bottom: -8%;
+
+      height: 40%;
+
+      background:
+        radial-gradient(
+          ellipse at center top,
+          #634329 0%,
+          #3b291c 42%,
+          #211912 100%
+        );
+
+      border-radius: 50% 50% 0 0 / 15% 15% 0 0;
+
+      z-index: 3;
+    }
+
+    .ground::before {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      opacity: .2;
+
+      background:
+        repeating-linear-gradient(
+          100deg,
+          transparent 0 40px,
+          rgba(241,232,210,.04) 41px 43px
+        );
+    }
+
+
+    /* =====================================================
+       ESTRADA
+    ====================================================== */
+
+    .road {
+      position: absolute;
+
+      left: 40%;
+      bottom: -6%;
+
+      width: 40%;
+      height: 38%;
+
+      background:
+        linear-gradient(
+          90deg,
+          #25201a,
+          #4a3929 50%,
+          #25201a
+        );
+
+      clip-path: polygon(
+        42% 0%,
+        58% 0%,
+        100% 100%,
+        0% 100%
+      );
+
+      transform:
+        translate(
+          calc(var(--mouse-x) * .8),
+          calc(var(--mouse-y) * .8)
+        );
+
+      z-index: 4;
+    }
+
+    .road::before {
+      content: "";
+
+      position: absolute;
+
+      top: 0;
+      bottom: 0;
+      left: 50%;
+
+      width: 3px;
+
+      transform: translateX(-50%);
+
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(241,232,210,.65) 0 16px,
+          transparent 16px 31px
+        );
+    }
+
+
+    /* =====================================================
+       POEIRA
+    ====================================================== */
+
+    .dust {
+      position: absolute;
+
+      left: 50%;
+      bottom: 13%;
+
+      width: 280px;
+      height: 50px;
+
+      transform: translateX(-50%);
+
+      background:
+        radial-gradient(
+          ellipse,
+          rgba(201,155,97,.25),
+          transparent 70%
+        );
+
+      filter: blur(8px);
+
+      z-index: 5;
+
+      animation: dustMove 4s ease-in-out infinite;
+    }
+
+
+    /* =====================================================
+       SCROLL
+    ====================================================== */
+
+    .scroll-indicator {
+      position: absolute;
+
+      left: 50%;
+      bottom: 28px;
+
+      transform: translateX(-50%);
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 9px;
+
+      z-index: 30;
+
+      color: var(--muted);
+
+      font-family: "DM Mono", monospace;
+      font-size: 8px;
+      letter-spacing: .16em;
+    }
+
+    .scroll-indicator i {
+      width: 1px;
+      height: 36px;
+
+      background: var(--muted);
+
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scroll-indicator i::after {
+      content: "";
+
+      position: absolute;
+
+      top: -100%;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+
+      background: var(--orange);
+
+      animation: scrollDot 1.7s ease-in-out infinite;
+    }
+
+
+    /* =====================================================
+       TICKER
+    ====================================================== */
+
+    .ticker {
+      overflow: hidden;
+
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+
+      background: var(--orange);
+
+      color: var(--ink);
+
+      white-space: nowrap;
+    }
+
+    .ticker-track {
+      width: max-content;
+
+      display: flex;
+      align-items: center;
+      gap: 28px;
+
+      padding: 14px 0;
+
+      font-family: "DM Mono", monospace;
+      font-size: 11px;
+      font-weight: 500;
+
+      animation: ticker 24s linear infinite;
+    }
+
+    .ticker-track b {
+      font-size: 10px;
+    }
+
+
+    /* =====================================================
+       SEÇÕES
+    ====================================================== */
+
+    .section {
+      padding: 130px 8vw;
+      position: relative;
+    }
+
+    .section-heading {
+      margin-bottom: 70px;
+    }
+
+    .section-number {
+      margin-bottom: 18px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(48px, 6vw, 88px);
+      line-height: .9;
+      letter-spacing: -.065em;
+    }
+
+
+    /* =====================================================
+       SOBRE
+    ====================================================== */
+
+    .about {
+      background: var(--bg);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 10vw;
+      align-items: start;
+    }
+
+    .about-text {
+      max-width: 650px;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 15px;
+      margin-bottom: 22px;
+    }
+
+    .about-text .about-lead {
+      color: var(--paper);
+      font-size: 22px;
+      line-height: 1.55;
+    }
+
+    .about-stats {
+      border-top: 1px solid var(--line);
+    }
+
+    .stat {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 24px 0;
+
+      border-bottom: 1px solid var(--line);
+    }
+
+    .stat strong {
+      font-family: "DM Mono", monospace;
+      color: var(--orange);
+      font-size: 28px;
+    }
+
+    .stat span {
+      font-family: "DM Mono", monospace;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.5;
+      text-align: right;
+      letter-spacing: .08em;
+    }
+
+
+    /* =====================================================
+       HABILIDADES
+    ====================================================== */
+
+    .skills-section {
+      background: var(--bg-soft);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+
+    .skill {
+      position: relative;
+
+      min-height: 205px;
+
+      display: grid;
+      grid-template-columns: 40px 58px 1fr 30px;
+
+      gap: 18px;
+
+      align-items: start;
+
+      padding: 30px;
+
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+
+      overflow: hidden;
+
+      cursor: pointer;
+
+      transition:
+        background .35s ease,
+        transform .35s ease;
+    }
+
+    .skill::before {
+      content: "";
+
+      position: absolute;
+
+      left: 0;
+      bottom: 0;
+
+      width: 0;
+      height: 3px;
+
+      background: var(--orange);
+
+      transition: width .35s ease;
+    }
+
+    .skill:hover {
+      background: rgba(214,93,47,.055);
+      transform: translateY(-4px);
+    }
+
+    .skill:hover::before {
+      width: 100%;
+    }
+
+    .skill-number {
+      font-family: "DM Mono", monospace;
+
+      color: var(--muted);
+
+      font-size: 10px;
+    }
+
+    .skill-icon {
+      width: 52px;
+      height: 52px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid var(--line);
+
+      color: var(--orange);
+
+      font-size: 35px;
+
+      transition:
+        transform .3s ease,
+        background .3s ease,
+        color .3s ease;
+    }
+
+    .skill:hover .skill-icon {
+      transform: rotate(-5deg) scale(1.08);
+
+      background: var(--orange);
+      color: var(--paper);
+    }
+
+    .skill-info h3 {
+      margin-bottom: 10px;
+
+      font-size: 21px;
+      letter-spacing: -.04em;
+    }
+
+    .skill-info p {
+      max-width: 280px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .skill-arrow {
+      color: var(--orange);
+
+      font-size: 18px;
+
+      transition: transform .25s ease;
+    }
+
+    .skill:hover .skill-arrow {
+      transform: translate(4px, -4px);
+    }
+
+
+    /* =====================================================
+       MODAL DAS HABILIDADES
+    ====================================================== */
+
+    .skill-modal {
+      position: fixed;
+      inset: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      visibility: hidden;
+      opacity: 0;
+
+      z-index: 1000;
+
+      transition:
+        opacity .3s ease,
+        visibility .3s ease;
+    }
+
+    .skill-modal.open {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .skill-modal-overlay {
+      position: absolute;
+      inset: 0;
+
+      background: rgba(0,0,0,.72);
+
+      backdrop-filter: blur(8px);
+    }
+
+    .skill-modal-box {
+      position: relative;
+
+      width: min(540px, 100%);
+
+      padding: 42px;
+
+      background: var(--bg-soft);
+
+      border: 1px solid var(--line);
+
+      box-shadow:
+        0 30px 80px rgba(0,0,0,.5);
+
+      transform: translateY(25px) scale(.97);
+
+      transition: transform .3s ease;
+
+      z-index: 2;
+    }
+
+    .skill-modal.open .skill-modal-box {
+      transform: translateY(0) scale(1);
+    }
+
+    .skill-modal-close {
+      position: absolute;
+
+      top: 17px;
+      right: 17px;
+
+      width: 38px;
+      height: 38px;
+
+      border: 1px solid var(--line);
+
+      background: transparent;
+      color: var(--paper);
+
+      cursor: pointer;
+
+      transition:
+        background .2s ease,
+        color .2s ease;
+    }
+
+    .skill-modal-close:hover {
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .skill-modal-icon {
+      width: 70px;
+      height: 70px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 25px;
+
+      border: 1px solid var(--line);
+
+      color: var(--orange);
+
+      font-size: 46px;
+    }
+
+    .skill-modal-label {
+      margin-bottom: 8px;
+
+      color: var(--orange);
+
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+      letter-spacing: .14em;
+    }
+
+    .skill-modal-box h2 {
+      margin-bottom: 18px;
+
+      font-size: 42px;
+      letter-spacing: -.06em;
+    }
+
+    #skill-modal-description {
+      color: var(--muted);
+
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .skill-modal-tags {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 7px;
+
+      margin-top: 25px;
+    }
+
+    .skill-modal-tags span {
+      padding: 8px 10px;
+
+      border: 1px solid var(--line);
+
+      color: var(--muted);
+
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+    }
+
+
+    /* =====================================================
+       PROJETOS
+    ====================================================== */
+
+    .projects-section {
+      background: var(--bg);
+    }
+
+    .projects-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 50px;
+    }
+
+    .section-intro {
+      max-width: 320px;
+
+      color: var(--muted);
+
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .project-card {
+      min-height: 440px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      padding: 30px;
+
+      border: 1px solid var(--line);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.025),
+          rgba(255,255,255,.005)
+        );
+
+      transition:
+        border-color .35s ease,
+        background .35s ease,
+        transform .15s ease;
+    }
+
+    .project-card:hover {
+      border-color: rgba(214,93,47,.6);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(214,93,47,.08),
+          rgba(255,255,255,.01)
+        );
+    }
+
+    .project-featured {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(214,93,47,.10),
+          rgba(255,255,255,.015)
+        );
+    }
+
+    .project-top,
+    .project-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .project-status,
+    .project-number,
+    .project-type,
+    .project-tags span,
+    .project-link {
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+      letter-spacing: .08em;
+    }
+
+    .project-status {
+      color: var(--orange);
+    }
+
+    .project-number {
+      color: var(--muted);
+    }
+
+    .project-type {
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .project-content h3 {
+      font-size: clamp(42px, 5vw, 70px);
+      line-height: .9;
+      letter-spacing: -.07em;
+
+      margin-bottom: 24px;
+    }
+
+    .project-content > p:last-child {
+      max-width: 420px;
+
+      color: var(--muted);
+
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .project-tags span {
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .project-link {
+      color: var(--paper);
+      transition: color .2s ease;
+    }
+
+    .project-link:hover {
+      color: var(--orange);
+    }
+
+
+    /* =====================================================
+       CTA
+    ====================================================== */
+
+    .cta {
+      padding: 140px 8vw;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange-dark),
+          var(--orange)
+        );
+
+      color: var(--paper);
+    }
+
+    .cta-inner {
+      max-width: 900px;
+    }
+
+    .cta .section-number {
+      color: rgba(241,232,210,.7);
+    }
+
+    .cta h2 {
+      margin: 20px 0 25px;
+
+      font-size: clamp(65px, 10vw, 150px);
+      line-height: .82;
+      letter-spacing: -.08em;
+    }
+
+    .cta h2 span {
+      color: var(--ink);
+    }
+
+    .cta p:not(.section-number) {
+      max-width: 500px;
+
+      margin-bottom: 28px;
+
+      color: rgba(241,232,210,.78);
+
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .cta .btn-primary {
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .cta .btn-primary:hover {
+      background: var(--paper);
+      color: var(--ink);
+      border-color: var(--paper);
+    }
+
+
+    /* =====================================================
+       CONTATO
+    ====================================================== */
+
+    .contact-section {
+      background: var(--bg-soft);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+
+      gap: 10vw;
+    }
+
+    .contact-copy p {
+      margin-bottom: 20px;
+
+      max-width: 440px;
+
+      color: var(--paper);
+
+      font-size: 21px;
+      line-height: 1.55;
+    }
+
+    .contact-copy span {
+      color: var(--muted);
+
+      font-size: 13px;
+    }
+
+    .contact-links {
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 20px 0;
+
+      border-bottom: 1px solid var(--line);
+
+      font-family: "DM Mono", monospace;
+      font-size: 11px;
+
+      transition:
+        color .25s ease,
+        padding-left .25s ease;
+    }
+
+    .contact-link strong {
+      color: var(--orange);
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .contact-link:hover {
+      color: var(--orange);
+      padding-left: 10px;
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ====================================================== */
+
+    .footer {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+
+      gap: 30px;
+
+      padding: 35px 8vw;
+
+      border-top: 1px solid var(--line);
+
+      background: var(--bg);
+
+      color: var(--muted);
+    }
+
+    .footer strong {
+      color: var(--paper);
+
+      font-family: "DM Mono", monospace;
+      font-size: 15px;
+    }
+
+    .footer p {
+      margin-top: 7px;
+
+      font-size: 11px;
+    }
+
+    .footer-right {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+    }
+
+    .footer-right a {
+      transition: color .2s ease;
+    }
+
+    .footer-right a:hover {
+      color: var(--orange);
+    }
+
+
+    /* =====================================================
+       REVEAL
+    ====================================================== */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+
+      transition:
+        opacity .8s ease,
+        transform .8s ease;
+    }
+
+    .reveal.apareceu {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+
+    /* =====================================================
+       ANIMAÇÕES
+    ====================================================== */
+
+    @keyframes sunFloat {
+
+      0%,
+      100% {
+        margin-top: 0;
+      }
+
+      50% {
+        margin-top: 8px;
+      }
+
+    }
+
+    @keyframes moonFloat {
+
+      0%,
+      100% {
+        margin-top: 0;
+      }
+
+      50% {
+        margin-top: 6px;
+      }
+
+    }
+
+    @keyframes cloudMove {
+
+      0% {
+        margin-left: -20px;
+      }
+
+      50% {
+        margin-left: 25px;
+      }
+
+      100% {
+        margin-left: -20px;
+      }
+
+    }
+
+    @keyframes dustMove {
+
+      0%,
+      100% {
+        opacity: .35;
+        transform: translateX(-50%) scaleX(.85);
+      }
+
+      50% {
+        opacity: .7;
+        transform: translateX(-50%) scaleX(1.15);
+      }
+
+    }
+
+    @keyframes ticker {
+
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+
+    }
+
+    @keyframes scrollDot {
+
+      0% {
+        top: -100%;
+      }
+
+      100% {
+        top: 100%;
+      }
+
+    }
+
+
+    /* =====================================================
+       MODO SECRETO
+    ====================================================== */
+
+    body.secret-mode {
+      --orange: #e7b85c;
+      --orange-dark: #b47e25;
+    }
+
+
+    /* =====================================================
+       TABLET
+    ====================================================== */
+
+    @media (max-width: 900px) {
+
+      .nav-links {
+        position: fixed;
+
+        top: 76px;
+        right: 0;
+
+        width: min(330px, 85vw);
+        height: calc(100vh - 76px);
+
+        padding: 35px 30px;
+
+        flex-direction: column;
+        align-items: flex-start;
+
+        background: rgba(17,17,15,.97);
+
+        border-left: 1px solid var(--line);
+
+        transform: translateX(100%);
+
+        transition: transform .3s ease;
+      }
+
+      .nav-links.open {
+        transform: translateX(0);
+      }
+
+      .nav-links a {
+        font-size: 13px;
+      }
+
+      .nav-btn {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .hero-copy {
+        left: 6vw;
+      }
+
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 55px;
+      }
+
+      .projects-heading {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .hero {
+        min-height: 760px;
+      }
+
+      .road {
+        left: 35%;
+        width: 45%;
+      }
+
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ====================================================== */
+
+    @media (max-width: 650px) {
+
+      .nav {
+        height: 68px;
+        padding: 0 5vw;
+      }
+
+      .nav-links {
+        top: 68px;
+        height: calc(100vh - 68px);
+      }
+
+      .hero {
+        height: 760px;
+        min-height: 760px;
+      }
+
+      .hero-copy {
+        top: 155px;
+        left: 6vw;
+
+        transform: none;
+
+        width: 88vw;
+      }
+
+      .hero h1 {
+        font-size: clamp(49px, 14vw, 75px);
+      }
+
+      .hero-description {
+        max-width: 90%;
+        font-size: 13px;
+      }
+
+      .hero-actions {
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        min-height: 45px;
+      }
+
+      .sun {
+        width: 105px;
+        top: 22%;
+        right: 8%;
+      }
+
+      .moon {
+        width: 38px;
+        height: 38px;
+
+        left: 49%;
+        top: 31%;
+      }
+
+      .moon::after {
+        width: 33px;
+        height: 33px;
+
+        left: 8px;
+        top: -4px;
+      }
+
+      .cloud-1 {
+        top: 36%;
+        left: 3%;
+        transform: scale(.65);
+      }
+
+      .cloud-2 {
+        top: 42%;
+        right: -15%;
+      }
+
+      .ground {
+        height: 30%;
+      }
+
+      .road {
+        left: 32%;
+        bottom: -4%;
+
+        width: 45%;
+        height: 31%;
+      }
+
+      .cactus {
+        bottom: 19%;
+      }
+
+      .cactus-left {
+        left: -1%;
+        transform:
+          translate(
+            calc(var(--mouse-x) * .15),
+            calc(var(--mouse-y) * .15)
+          )
+          scale(.72);
+      }
+
+      .cactus-center {
+        left: 47%;
+        bottom: 18%;
+        transform:
+          translate(
+            calc(var(--mouse-x) * .15),
+            calc(var(--mouse-y) * .15)
+          )
+          scale(.48);
+      }
+
+      .cactus-right {
+        right: -7%;
+        bottom: 19%;
+        transform:
+          translate(
+            calc(var(--mouse-x) * .15),
+            calc(var(--mouse-y) * .15)
+          )
+          scale(.78);
+      }
+
+      .sign {
+        right: 12%;
+        bottom: 28%;
+        transform:
+          translate(
+            calc(var(--mouse-x) * .25),
+            calc(var(--mouse-y) * .25)
+          )
+          scale(.75);
+      }
+
+      .dust {
+        bottom: 15%;
+        width: 210px;
+      }
+
+      .scroll-indicator {
+        bottom: 18px;
+      }
+
+      .section {
+        padding: 90px 6vw;
+      }
+
+      .section-heading {
+        margin-bottom: 50px;
+      }
+
+      .section-heading h2 {
+        font-size: clamp(43px, 12vw, 65px);
+      }
+
+      .about-text .about-lead {
+        font-size: 19px;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skill {
+        min-height: 175px;
+
+        grid-template-columns: 30px 48px 1fr 20px;
+
+        gap: 12px;
+
+        padding: 24px 18px;
+      }
+
+      .skill-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 28px;
+      }
+
+      .skill-info h3 {
+        font-size: 18px;
+      }
+
+      .skill-info p {
+        font-size: 12px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card {
+        min-height: 390px;
+        padding: 24px;
+      }
+
+      .project-content h3 {
+        font-size: 52px;
+      }
+
+      .cta {
+        padding: 100px 6vw;
+      }
+
+      .cta h2 {
+        font-size: clamp(65px, 18vw, 105px);
+      }
+
+      .contact-copy p {
+        font-size: 19px;
+      }
+
+      .footer {
+        padding: 30px 6vw;
+
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .footer-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .skill-modal-box {
+        padding: 30px 23px;
+      }
+
+      .skill-modal-box h2 {
+        font-size: 35px;
+      }
+
+    }
+
+
+    /* =====================================================
+       MOBILE PEQUENO
+    ====================================================== */
+
+    @media (max-width: 380px) {
+
+      .hero {
+        height: 730px;
+        min-height: 730px;
+      }
+
+      .hero-copy {
+        top: 135px;
+      }
+
+      .hero h1 {
+        font-size: 47px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .sign {
+        right: 7%;
+        bottom: 27%;
+      }
+
+      .cactus-left {
+        left: -9%;
+      }
+
+      .cactus-right {
+        right: -13%;
+      }
+
+      .road {
+        left: 29%;
+        width: 48%;
+      }
+
+    }
+
+
+    /* =====================================================
+       ACESSIBILIDADE
+    ====================================================== */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       NAVBAR
+  ====================================================== -->
+
+  <header class="nav" id="topo">
+
+    <a
+      class="brand"
+      href="#inicio"
+      aria-label="Lucas.Dev — início"
+    >
+      LUCAS<span>.DEV</span>
+    </a>
+
+
+    <nav
+      class="nav-links"
+      id="menu-principal"
+      aria-label="Navegação principal"
+    >
+
+      <a href="#sobre">Sobre</a>
+
+      <a href="#habilidades">
+        Habilidades
+      </a>
+
+      <a href="#projetos">
+        Projetos
+      </a>
+
+      <a href="#contato">
+        Contato
+      </a>
+
+    </nav>
+
+
+    <a
+      class="nav-btn"
+      href="#projetos"
+    >
+      Bora ver 👀
+    </a>
+
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="Abrir menu"
+      aria-expanded="false"
+      aria-controls="menu-principal"
+    >
+      ☰
+    </button>
+
+  </header>
+
+
+
+  <main>
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section
+      class="hero"
+      id="inicio"
+    >
+
+      <div
+        class="sun"
+        aria-hidden="true"
+      ></div>
+
+
+      <div class="hero-copy">
+
+        <p class="eyebrow">
+          DESENVOLVEDOR EM FORMAÇÃO
+        </p>
+
+
+        <h1>
+          CODANDO<br>
+          MEU <span>CAMINHO.</span>
+        </h1>
+
+
+        <p class="hero-description">
+          Construindo projetos, aprendendo tecnologia
+          e transformando ideias em experiências para a web.
+        </p>
+
+
+        <div class="hero-actions">
+
+          <a
+            class="btn btn-primary"
+            href="#projetos"
+          >
+            Ver projetos
+          </a>
+
+
+          <a
+            class="btn btn-outline"
+            href="#sobre"
+          >
+            Conhecer mais
+          </a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- =================================================
+           CENÁRIO
+      ================================================== -->
+
+      <div
+        class="hero-art"
+        aria-hidden="true"
+      >
+
+        <div class="moon"></div>
+
+        <div class="cloud cloud-1"></div>
+
+        <div class="cloud cloud-2"></div>
+
+
+        <div class="cactus cactus-left">
+          <span></span>
+        </div>
+
+
+        <div class="cactus cactus-center">
+          <span></span>
+        </div>
+
+
+        <div class="cactus cactus-right">
+          <span></span>
+        </div>
+
+
+        <div class="sign">
+
+          <span>
+            CODAR
+          </span>
+
+          <small>
+            →
+          </small>
+
+        </div>
+
+
+        <div class="ground"></div>
+
+        <div class="road"></div>
+
+        <div class="dust"></div>
+
+      </div>
+
+
+      <div class="scroll-indicator">
+
+        <span>
+          SCROLL
+        </span>
+
+        <i></i>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         TICKER
+    ====================================================== -->
+
+    <div
+      class="ticker"
+      aria-hidden="true"
+    >
+
+      <div class="ticker-track">
+
+        <span>HTML</span>
+        <b>✦</b>
+
+        <span>CSS</span>
+        <b>✦</b>
+
+        <span>JAVASCRIPT</span>
+        <b>✦</b>
+
+        <span>PYTHON</span>
+        <b>✦</b>
+
+        <span>GIT</span>
+        <b>✦</b>
+
+        <span>GITHUB</span>
+        <b>✦</b>
+
+
+        <span>HTML</span>
+        <b>✦</b>
+
+        <span>CSS</span>
+        <b>✦</b>
+
+        <span>JAVASCRIPT</span>
+        <b>✦</b>
+
+        <span>PYTHON</span>
+        <b>✦</b>
+
+        <span>GIT</span>
+        <b>✦</b>
+
+        <span>GITHUB</span>
+        <b>✦</b>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SOBRE
+    ====================================================== -->
+
+    <section
+      class="section about"
+      id="sobre"
+    >
+
+      <div class="section-heading reveal">
+
+        <p class="section-number">
+          01 — SOBRE
+        </p>
+
+
+        <h2>
+          UM PASSO<br>
+          DE CADA VEZ.
+        </h2>
+
+      </div>
+
+
+      <div class="about-grid">
+
+        <div class="about-text reveal">
+
+          <p class="about-lead">
+            Estou construindo minha jornada na programação
+            começando pela base e colocando conhecimento
+            em prática através de projetos reais.
+          </p>
+
+
+          <p>
+            Atualmente estudo desenvolvimento web e venho
+            explorando HTML, CSS, JavaScript, Git, GitHub
+            e Python.
+          </p>
+
+
+          <p>
+            A ideia é simples: aprender, criar, errar,
+            melhorar e continuar evoluindo.
+          </p>
+
+        </div>
+
+
+        <div class="about-stats reveal">
+
+          <div class="stat">
+
+            <strong>01</strong>
+
+            <span>
+              MENTALIDADE<br>
+              DE APRENDIZADO
+            </span>
+
+          </div>
+
+
+          <div class="stat">
+
+            <strong>∞</strong>
+
+            <span>
+              IDEIAS PARA<br>
+              CONSTRUIR
+            </span>
+
+          </div>
+
+
+          <div class="stat">
+
+            <strong>24/7</strong>
+
+            <span>
+              VONTADE DE<br>
+              EVOLUIR
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         HABILIDADES
+    ====================================================== -->
+
+    <section
+      class="section skills-section"
+      id="habilidades"
+    >
+
+      <div class="section-heading reveal">
+
+        <p class="section-number">
+          02 — HABILIDADES
+        </p>
+
+
+        <h2>
+          FERRAMENTAS<br>
+          DO CAMINHO.
+        </h2>
+
+      </div>
+
+
+      <div class="skills-grid">
+
+
+        <!-- HTML -->
+
+        <article
+          class="skill reveal"
+          data-skill="HTML5"
+          tabindex="0"
+          role="button"
+          aria-label="Ver informações sobre HTML5"
+        >
+
+          <span class="skill-number">
+            01
+          </span>
+
+
+          <div
+            class="skill-icon"
+            aria-hidden="true"
+          >
+            <i class="devicon-html5-plain"></i>
+          </div>
+
+
+          <div class="skill-info">
+
+            <h3>
+              HTML5
+            </h3>
+
+            <p>
+              Estrutura e semântica para páginas web.
+            </p>
+
+          </div>
+
+
+          <span class="skill-arrow">
+            ↗
+          </span>
+
+        </article>
+
+
+
+        <!-- CSS -->
+
+        <article
+          class="skill reveal"
+          data-skill="CSS3"
+          tabindex="0"
+          role="button"
+          aria-label="Ver informações sobre CSS3"
+        >
+
+          <span class="skill-number">
+            02
+          </span>
+
+
+          <div
+            class="skill-icon"
+            aria-hidden="true"
+          >
+            <i class="devicon-css3-plain"></i>
+          </div>
+
+
+          <div class="skill-info">
+
+            <h3>
+              CSS3
+            </h3>
+
+            <p>
+              Layouts, responsividade, animações e interfaces.
+            </p>
+
+          </div>
+
+
+          <span class="skill-arrow">
+            ↗
+          </span>
+
+        </article>
+
+
+
+        <!-- JAVASCRIPT -->
+
+        <article
+          class="skill reveal"
+          data-skill="JavaScript"
+          tabindex="0"
+          role="button"
+          aria-label="Ver informações sobre JavaScript"
+        >
+
+          <span class="skill-number">
+            03
+          </span>
+
+
+          <div
+            class="skill-icon"
+            aria-hidden="true"
+          >
+            <i class="devicon-javascript-plain"></i>
+          </div>
+
+
+          <div class="skill-info">
+
+            <h3>
+              JAVASCRIPT
+            </h3>
+
+            <p>
+              Interações e comportamento dinâmico.
+            </p>
+
+          </div>
+
+
+          <span class="skill-arrow">
+            ↗
+          </span>
+
+        </article>
+
+
+
+        <!-- GIT -->
+
+        <article
+          class="skill reveal"
+          data-skill="Git"
+          tabindex="0"
+          role="button"
+          aria-label="Ver informações sobre Git"
+        >
+
+          <span class="skill-number">
+            04
+          </span>
+
+
+          <div
+            class="skill-icon"
+            aria-hidden="true"
+          >
+            <i class="devicon-git-plain"></i>
+          </div>
+
+
+          <div class="skill-info">
+
+            <h3>
+              GIT
+            </h3>
+
+            <p>
+              Controle de versão e organização do código.
+            </p>
+
+          </div>
+
+
+          <span class="skill-arrow">
+            ↗
+          </span>
+
+        </article>
+
+
+
+        <!-- GITHUB -->
+
+        <article
+          class="skill reveal"
+          data-skill="GitHub"
+          tabindex="0"
+          role="button"
+          aria-label="Ver informações sobre GitHub"
+        >
+
+          <span class="skill-number">
+            05
+          </span>
+
+
+          <div
+            class="skill-icon"
+            aria-hidden="true"
+          >
+            <i class="devicon-github-original"></i>
+          </div>
+
+
+          <div class="skill-info">
+
+            <h3>
+              GITHUB
+            </h3>
+
+            <p>
+              Versionamento e publicação dos projetos.
+            </p>
+
+          </div>
+
+
+          <span class="skill-arrow">
+            ↗
+          </span>
+
+        </article>
+
+
+
+        <!-- PYTHON -->
+
+        <article
+          class="skill reveal"
+          data-skill="Python"
+          tabindex="0"
+          role="button"
+          aria-label="Ver informações sobre Python"
+        >
+
+          <span class="skill-number">
+            06
+          </span>
+
+
+          <div
+            class="skill-icon"
+            aria-hidden="true"
+          >
+            <i class="devicon-python-plain"></i>
+          </div>
+
+
+          <div class="skill-info">
+
+            <h3>
+              PYTHON
+            </h3>
+
+            <p>
+              Programação, lógica e automação.
+            </p>
+
+          </div>
+
+
+          <span class="skill-arrow">
+            ↗
+          </span>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PROJETOS
+    ====================================================== -->
+
+    <section
+      class="section projects-section"
+      id="projetos"
+    >
+
+      <div
+        class="section-heading projects-heading reveal"
+      >
+
+        <div>
+
+          <p class="section-number">
+            03 — PROJETOS
+          </p>
+
+
+          <h2>
+            O QUE ESTOU<br>
+            CONSTRUINDO.
+          </h2>
+
+        </div>
+
+
+        <p class="section-intro">
+          Projetos reais para transformar estudo
+          em experiência prática.
+        </p>
+
+      </div>
+
+
+      <div class="projects-grid">
+
+
+        <!-- PROJETO 01 -->
+
+        <article class="project-card reveal">
+
+          <div class="project-top">
+
+            <span class="project-status">
+              EM DESENVOLVIMENTO
+            </span>
+
+            <span class="project-number">
+              01
+            </span>
+
+          </div>
+
+
+          <div class="project-content">
+
+            <p class="project-type">
+              PROJETO DE ESTUDO
+            </p>
+
+
+            <h3>
+              Primeiro<br>
+              Projeto
+            </h3>
+
+
+            <p>
+              Projeto desenvolvido durante minha
+              jornada de estudos em programação.
+            </p>
+
+          </div>
+
+
+          <div class="project-bottom">
+
+            <div class="project-tags">
+
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JS</span>
+
+            </div>
+
+
+            <span class="project-link">
+              EM BREVE ↗
+            </span>
+
+          </div>
+
+        </article>
+
+
+
+        <!-- ADOTAÊ -->
+
+        <article
+          class="project-card project-featured reveal"
+        >
+
+          <div class="project-top">
+
+            <span class="project-status">
+              MVP CONCLUÍDO
+            </span>
+
+            <span class="project-number">
+              02
+            </span>
+
+          </div>
+
+
+          <div class="project-content">
+
+            <p class="project-type">
+              PROJETO AUTORAL
+            </p>
+
+
+            <h3>
+              Adotaê
+            </h3>
+
+
+            <p>
+              Plataforma web criada para aproximar
+              animais que precisam de um lar de pessoas
+              interessadas em adoção.
+            </p>
+
+          </div>
+
+
+          <div class="project-bottom">
+
+            <div class="project-tags">
+
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JS</span>
+
+            </div>
+
+
+            <a
+              class="project-link"
+              href="https://lucas248-art.github.io/ADOTA-/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              VER PROJETO ↗
+            </a>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CTA
+    ====================================================== -->
+
+    <section class="cta reveal">
+
+      <div class="cta-inner">
+
+        <p class="section-number">
+          PRÓXIMA PARADA
+        </p>
+
+
+        <h2>
+          VAMOS<br>
+          <span>CONSTRUIR?</span>
+        </h2>
+
+
+        <p>
+          O código ainda está começando.
+          Mas o caminho já está sendo escrito.
+        </p>
+
+
+        <a
+          class="btn btn-primary"
+          href="#contato"
+        >
+          Entrar em contato ↗
+        </a>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CONTATO
+    ====================================================== -->
+
+    <section
+      class="section contact-section"
+      id="contato"
+    >
+
+      <div class="section-heading reveal">
+
+        <p class="section-number">
+          04 — CONTATO
+        </p>
+
+
+        <h2>
+          BORA<br>
+          CONVERSAR?
+        </h2>
+
+      </div>
+
+
+      <div class="contact-grid reveal">
+
+        <div class="contact-copy">
+
+          <p>
+            Quer trocar uma ideia, falar sobre um projeto
+            ou acompanhar minha evolução?
+          </p>
+
+
+          <span>
+            Estou construindo meu caminho na programação.
+          </span>
+
+        </div>
+
+
+        <div class="contact-links">
+
+
+          <a
+            href="mailto:lucasmarquespereira248@gmail.com"
+            class="contact-link"
+          >
+
+            <span>
+              EMAIL
+            </span>
+
+            <strong>
+              →
+            </strong>
+
+          </a>
+
+
+          <a
+            href="https://github.com/lucas248-art"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-link"
+          >
+
+            <span>
+              GITHUB
+            </span>
+
+            <strong>
+              →
+            </strong>
+
+          </a>
+
+
+          <a
+            href="https://www.instagram.com/lczinqz07"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-link"
+          >
+
+            <span>
+              INSTAGRAM
+            </span>
+
+            <strong>
+              →
+            </strong>
+
+          </a>
+
+
+          <a
+            href="https://www.linkedin.com/in/lucas-d-8224a03b3"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-link"
+          >
+
+            <span>
+              LINKEDIN
+            </span>
+
+            <strong>
+              →
+            </strong>
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- =====================================================
+       MODAL DAS HABILIDADES
+  ====================================================== -->
+
+  <div
+    class="skill-modal"
+    id="skill-modal"
+    aria-hidden="true"
+  >
+
+    <div
+      class="skill-modal-overlay"
+      data-modal-close
+    ></div>
+
+
+    <div
+      class="skill-modal-box"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="skill-modal-title"
+    >
+
+      <button
+        class="skill-modal-close"
+        type="button"
+        aria-label="Fechar"
+        data-modal-close
+      >
+        ✕
+      </button>
+
+
+      <div
+        class="skill-modal-icon"
+        id="skill-modal-icon"
+      ></div>
+
+
+      <p class="skill-modal-label">
+        TECNOLOGIA
+      </p>
+
+
+      <h2 id="skill-modal-title">
+        HTML5
+      </h2>
+
+
+      <p id="skill-modal-description">
+        Estrutura e semântica para páginas web.
+      </p>
+
+
+      <div
+        class="skill-modal-tags"
+        id="skill-modal-tags"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
+  <footer class="footer">
+
+    <div>
+
+      <strong>
+        LUCAS<span>.DEV</span>
+      </strong>
+
+
+      <p>
+        Feito no Maranhão, com código e café.
+      </p>
+
+    </div>
+
+
+    <div class="footer-right">
+
+      <span>
+        © 2026
+      </span>
+
+
+      <a href="#inicio">
+        VOLTAR AO TOPO ↑
+      </a>
+
+    </div>
+
+  </footer>
+
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+  ====================================================== -->
+
+  <script>
+
+    /* =====================================================
+       NAVBAR
+    ====================================================== */
+
+    const nav =
+      document.querySelector(".nav");
+
+    function updateNavbar() {
+
+      if (!nav) return;
+
+      if (window.scrollY > 20) {
+
+        nav.classList.add("scrolled");
+
+      } else {
+
+        nav.classList.remove("scrolled");
+
+      }
+
+    }
+
+    window.addEventListener(
+      "scroll",
+      updateNavbar,
+      { passive: true }
     );
 
-  opacity: .78;
-}
+    updateNavbar();
 
 
-/* =========================
-   SOL — MAIS PROFUNDIDADE
-========================== */
 
-.sun {
-  filter:
-    saturate(.9);
+    /* =====================================================
+       MENU MOBILE
+    ====================================================== */
 
-  box-shadow:
-    0 0 45px rgba(201,155,97,.12),
-    0 0 100px rgba(201,155,97,.055);
-}
+    const menuToggle =
+      document.querySelector(".menu-toggle");
 
+    const navLinks =
+      document.querySelector(".nav-links");
 
-/* =========================
-   PLACA — MAIS PESO
-========================== */
 
-.sign {
-  z-index: 4;
+    function closeMenu() {
 
-  transform-origin:
-    center bottom;
+      if (!navLinks || !menuToggle) return;
 
-  box-shadow:
-    5px 8px 0 rgba(0,0,0,.24),
-    0 12px 25px rgba(0,0,0,.12),
-    inset 0 1px rgba(255,255,255,.07);
-}
+      navLinks.classList.remove("open");
 
+      menuToggle.setAttribute(
+        "aria-expanded",
+        "false"
+      );
 
-/* =========================================================
-   SKILLS — ÍCONES
-========================================================= */
+      menuToggle.setAttribute(
+        "aria-label",
+        "Abrir menu"
+      );
 
-.skill {
-  cursor: pointer;
+      menuToggle.textContent = "☰";
 
-  grid-template-columns:
-    45px 58px 1fr 30px;
+      document.body.classList.remove(
+        "menu-open"
+      );
 
-  align-items: start;
+    }
 
-  user-select: none;
-}
 
-.skill-icon {
-  width: 48px;
-  height: 48px;
+    function openMenu() {
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+      if (!navLinks || !menuToggle) return;
 
-  color: var(--paper);
+      navLinks.classList.add("open");
 
-  font-size: 38px;
+      menuToggle.setAttribute(
+        "aria-expanded",
+        "true"
+      );
 
-  transition:
-    transform .35s cubic-bezier(.2,.8,.2,1),
-    color .3s ease,
-    filter .3s ease;
-}
+      menuToggle.setAttribute(
+        "aria-label",
+        "Fechar menu"
+      );
 
-.skill:hover .skill-icon {
-  color: var(--orange);
+      menuToggle.textContent = "✕";
 
-  transform:
-    translateY(-5px)
-    rotate(-4deg)
-    scale(1.08);
+      document.body.classList.add(
+        "menu-open"
+      );
 
-  filter:
-    drop-shadow(0 8px 15px rgba(214,93,47,.15));
-}
+    }
 
-.skill:active .skill-icon {
-  transform:
-    scale(.94);
-}
 
+    if (menuToggle && navLinks) {
 
-/* =========================
-   SKILL FOCUS
-========================== */
+      menuToggle.addEventListener(
+        "click",
+        () => {
 
-.skill:focus-visible {
-  outline: 2px solid var(--orange);
-  outline-offset: -2px;
-}
+          const isOpen =
+            navLinks.classList.contains("open");
 
-.skill:focus-visible .skill-icon {
-  color: var(--orange);
-}
+          if (isOpen) {
 
+            closeMenu();
 
-/* =========================================================
-   MODAL DAS SKILLS
-========================================================= */
+          } else {
 
-.skill-modal {
-  position: fixed;
+            openMenu();
 
-  inset: 0;
+          }
 
-  z-index: 1000;
+        }
+      );
 
-  display: flex;
 
-  align-items: center;
-  justify-content: center;
+      navLinks
+        .querySelectorAll("a")
+        .forEach(link => {
 
-  padding: 25px;
+          link.addEventListener(
+            "click",
+            closeMenu
+          );
 
-  background:
-    rgba(10,10,8,.78);
+        });
 
-  backdrop-filter:
-    blur(12px);
 
-  opacity: 0;
+      document.addEventListener(
+        "keydown",
+        event => {
 
-  visibility: hidden;
+          if (event.key === "Escape") {
+            closeMenu();
+          }
 
-  pointer-events: none;
+        }
+      );
 
-  transition:
-    opacity .3s ease,
-    visibility .3s ease;
-}
 
-.skill-modal.open {
-  opacity: 1;
+      window.addEventListener(
+        "resize",
+        () => {
 
-  visibility: visible;
+          if (window.innerWidth > 900) {
+            closeMenu();
+          }
 
-  pointer-events: auto;
-}
+        }
+      );
 
-.skill-modal-content {
-  position: relative;
+    }
 
-  width: min(560px, 100%);
 
-  max-height: 90vh;
 
-  overflow-y: auto;
+    /* =====================================================
+       SCROLL SUAVE
+    ====================================================== */
 
-  padding: 42px;
+    document
+      .querySelectorAll('a[href^="#"]')
+      .forEach(link => {
 
-  border: 1px solid var(--line);
+        link.addEventListener(
+          "click",
+          event => {
 
-  background:
-    radial-gradient(
-      circle at 90% 0%,
-      rgba(214,93,47,.12),
-      transparent 35%
-    ),
-    #171613;
+            const href =
+              link.getAttribute("href");
 
-  box-shadow:
-    0 35px 100px rgba(0,0,0,.45);
+            if (!href || href === "#") {
+              return;
+            }
 
-  transform:
-    translateY(25px)
-    scale(.96);
+            const target =
+              document.querySelector(href);
 
-  transition:
-    transform .35s cubic-bezier(.2,.8,.2,1);
-}
+            if (!target) {
+              return;
+            }
 
-.skill-modal.open .skill-modal-content {
-  transform:
-    translateY(0)
-    scale(1);
-}
+            event.preventDefault();
 
-.skill-modal-icon {
-  width: 70px;
-  height: 70px;
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            });
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+          }
+        );
 
-  margin-bottom: 25px;
+      });
 
-  border: 1px solid var(--line);
 
-  color: var(--orange);
 
-  font-size: 48px;
+    /* =====================================================
+       PARALLAX DO DESERTO
+    ====================================================== */
 
-  background:
-    rgba(214,93,47,.05);
-}
+    const hero =
+      document.querySelector(".hero");
 
-.skill-modal-content h3 {
-  font-size:
-    clamp(35px, 6vw, 55px);
 
-  line-height: .9;
+    if (hero) {
 
-  letter-spacing: -2px;
+      hero.addEventListener(
+        "mousemove",
+        event => {
 
-  text-transform: uppercase;
-}
+          if (
+            window.matchMedia(
+              "(hover: none)"
+            ).matches
+          ) {
+            return;
+          }
 
-.skill-modal-content p {
-  margin-top: 20px;
+          const rect =
+            hero.getBoundingClientRect();
 
-  color: var(--muted);
 
-  font-size: 14px;
+          const x =
+            (
+              (event.clientX - rect.left)
+              / rect.width
+              - .5
+            ) * 18;
 
-  line-height: 1.75;
-}
 
-.skill-modal-tags {
-  display: flex;
+          const y =
+            (
+              (event.clientY - rect.top)
+              / rect.height
+              - .5
+            ) * 18;
 
-  flex-wrap: wrap;
 
-  gap: 8px;
+          hero.style.setProperty(
+            "--mouse-x",
+            `${x}px`
+          );
 
-  margin-top: 25px;
-}
 
-.skill-modal-tags span {
-  padding: 8px 10px;
+          hero.style.setProperty(
+            "--mouse-y",
+            `${y}px`
+          );
 
-  border: 1px solid var(--line);
+        }
+      );
 
-  color: var(--muted);
 
-  font-family: "DM Mono", monospace;
+      hero.addEventListener(
+        "mouseleave",
+        () => {
 
-  font-size: 9px;
+          hero.style.setProperty(
+            "--mouse-x",
+            "0px"
+          );
 
-  letter-spacing: 1px;
-}
+          hero.style.setProperty(
+            "--mouse-y",
+            "0px"
+          );
 
-.skill-modal-close {
-  position: absolute;
+        }
+      );
 
-  top: 18px;
-  right: 18px;
+    }
 
-  width: 40px;
-  height: 40px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  border: 1px solid var(--line);
+    /* =====================================================
+       REVEAL AO ROLAR
+    ====================================================== */
 
-  background: transparent;
+    const revealElements =
+      document.querySelectorAll(
+        ".reveal"
+      );
 
-  color: var(--muted);
 
-  cursor: pointer;
+    const revealObserver =
+      new IntersectionObserver(
+        entries => {
 
-  font-size: 20px;
+          entries.forEach(entry => {
 
-  transition:
-    color .25s ease,
-    background .25s ease,
-    border-color .25s ease,
-    transform .25s ease;
-}
+            if (
+              entry.isIntersecting
+            ) {
 
-.skill-modal-close:hover {
-  color: var(--paper);
+              entry.target.classList.add(
+                "apareceu"
+              );
 
-  background:
-    rgba(214,93,47,.1);
+              revealObserver.unobserve(
+                entry.target
+              );
 
-  border-color:
-    var(--orange);
+            }
 
-  transform:
-    rotate(90deg);
-}
+          });
 
+        },
+        {
+          threshold: .12
+        }
+      );
 
-/* =========================================================
-   RESPONSIVIDADE DAS SKILLS
-========================================================= */
 
-@media (max-width: 900px) {
+    revealElements.forEach(
+      element => {
 
-  .skill {
-    grid-template-columns:
-      35px 52px 1fr 25px;
+        revealObserver.observe(
+          element
+        );
 
-    gap: 15px;
-  }
+      }
+    );
 
-  .skill-icon {
-    width: 44px;
-    height: 44px;
 
-    font-size: 34px;
-  }
-}
 
+    /* =====================================================
+       CARDS 3D
+    ====================================================== */
 
-@media (max-width: 650px) {
+    const cards =
+      document.querySelectorAll(
+        ".project-card"
+      );
 
-  .skill {
-    min-height: 145px;
 
-    grid-template-columns:
-      30px 48px 1fr 20px;
+    cards.forEach(card => {
 
-    gap: 12px;
+      card.addEventListener(
+        "mousemove",
+        event => {
 
-    padding: 22px 18px;
-  }
+          if (
+            window.innerWidth <= 800
+          ) {
+            return;
+          }
 
-  .skill-icon {
-    width: 42px;
-    height: 42px;
+          const rect =
+            card.getBoundingClientRect();
 
-    font-size: 32px;
-  }
 
-  .skill h3 {
-    font-size: 19px;
-  }
+          const x =
+            (
+              (
+                event.clientX -
+                rect.left
+              )
+              / rect.width
+              - .5
+            ) * 5;
 
-  .skill p {
-    font-size: 12px;
-  }
 
-  .skill-arrow {
-    font-size: 17px;
-  }
+          const y =
+            (
+              (
+                event.clientY -
+                rect.top
+              )
+              / rect.height
+              - .5
+            ) * -5;
 
-  .skill-modal {
-    padding: 15px;
-  }
 
-  .skill-modal-content {
-    padding: 32px 24px;
+          card.style.transform =
+            `perspective(800px)
+             rotateY(${x}deg)
+             rotateX(${y}deg)
+             translateY(-5px)`;
 
-    max-height: 88vh;
-  }
+        }
+      );
 
-  .skill-modal-icon {
-    width: 58px;
-    height: 58px;
 
-    font-size: 38px;
-  }
+      card.addEventListener(
+        "mouseleave",
+        () => {
 
-  .skill-modal-close {
-    top: 12px;
-    right: 12px;
-  }
-}
+          card.style.transform = "";
 
+        }
+      );
 
-@media (max-width: 380px) {
+    });
 
-  .skill {
-    grid-template-columns:
-      25px 42px 1fr 18px;
 
-    gap: 9px;
 
-    padding: 20px 15px;
-  }
+    /* =====================================================
+       ACTIVE LINK
+    ====================================================== */
 
-  .skill-icon {
-    width: 38px;
-    height: 38px;
+    const sections =
+      document.querySelectorAll(
+        "main section[id]"
+      );
 
-    font-size: 29px;
-  }
 
-  .skill h3 {
-    font-size: 18px;
-  }
+    const menuLinks =
+      document.querySelectorAll(
+        ".nav-links a"
+      );
 
-  .skill p {
-    font-size: 11px;
-  }
 
-  .skill-modal-content {
-    padding: 28px 20px;
-  }
-}
+    const sectionObserver =
+      new IntersectionObserver(
+        entries => {
 
+          entries.forEach(entry => {
 
-/* =========================================================
-   REDUCED MOTION — CENÁRIO
-========================================================= */
+            if (
+              !entry.isIntersecting
+            ) {
+              return;
+            }
 
-@media (prefers-reduced-motion: reduce) {
 
-  .cactus {
-    animation: none !important;
-  }
+            const id =
+              entry.target.getAttribute(
+                "id"
+              );
 
-  .sun,
-  .moon,
-  .cloud,
-  .sign,
-  .dust {
-    animation: none !important;
-  }
-}
+
+            menuLinks.forEach(link => {
+
+              link.classList.remove(
+                "active"
+              );
+
+
+              if (
+                link.getAttribute("href")
+                === `#${id}`
+              ) {
+
+                link.classList.add(
+                  "active"
+                );
+
+              }
+
+            });
+
+          });
+
+        },
+        {
+          rootMargin:
+            "-35% 0px -55% 0px",
+
+          threshold: 0
+        }
+      );
+
+
+    sections.forEach(section => {
+
+      sectionObserver.observe(
+        section
+      );
+
+    });
+
+
+
+    /* =====================================================
+       HABILIDADES — MODAL
+    ====================================================== */
+
+    const skillData = {
+
+      HTML5: {
+
+        icon:
+          "devicon-html5-plain",
+
+        description:
+          "HTML5 é a base estrutural das páginas web. É usado para organizar conteúdos de forma semântica e acessível.",
+
+        tags: [
+          "Estrutura",
+          "Semântica",
+          "Acessibilidade",
+          "Web"
+        ]
+
+      },
+
+
+      CSS3: {
+
+        icon:
+          "devicon-css3-plain",
+
+        description:
+          "CSS3 é responsável pela aparência das páginas. Permite criar layouts, responsividade, animações e interfaces modernas.",
+
+        tags: [
+          "Layout",
+          "Flexbox",
+          "Grid",
+          "Responsividade",
+          "Animações"
+        ]
+
+      },
+
+
+      JavaScript: {
+
+        icon:
+          "devicon-javascript-plain",
+
+        description:
+          "JavaScript adiciona lógica e interatividade às páginas, permitindo criar experiências dinâmicas e responder às ações do usuário.",
+
+        tags: [
+          "DOM",
+          "Eventos",
+          "Lógica",
+          "Interatividade"
+        ]
+
+      },
+
+
+      Git: {
+
+        icon:
+          "devicon-git-plain",
+
+        description:
+          "Git é um sistema de controle de versão utilizado para acompanhar alterações no código e organizar o desenvolvimento dos projetos.",
+
+        tags: [
+          "Versionamento",
+          "Commits",
+          "Branches",
+          "Código"
+        ]
+
+      },
+
+
+      GitHub: {
+
+        icon:
+          "devicon-github-original",
+
+        description:
+          "GitHub permite armazenar e compartilhar projetos utilizando Git, além de facilitar colaboração e publicação de aplicações.",
+
+        tags: [
+          "Repositórios",
+          "Git",
+          "Colaboração",
+          "Deploy"
+        ]
+
+      },
+
+
+      Python: {
+
+        icon:
+          "devicon-python-plain",
+
+        description:
+          "Python é uma linguagem conhecida pela sintaxe simples e utilizada em programação, automação, dados, back-end e inteligência artificial.",
+
+        tags: [
+          "Lógica",
+          "Automação",
+          "Back-end",
+          "Programação"
+        ]
+
+      }
+
+    };
+
+
+    const skillModal =
+      document.querySelector(
+        "#skill-modal"
+      );
+
+
+    const skillModalIcon =
+      document.querySelector(
+        "#skill-modal-icon"
+      );
+
+
+    const skillModalTitle =
+      document.querySelector(
+        "#skill-modal-title"
+      );
+
+
+    const skillModalDescription =
+      document.querySelector(
+        "#skill-modal-description"
+      );
+
+
+    const skillModalTags =
+      document.querySelector(
+        "#skill-modal-tags"
+      );
+
+
+    const skillCards =
+      document.querySelectorAll(
+        ".skill"
+      );
+
+
+    function openSkillModal(
+      skillName
+    ) {
+
+      const data =
+        skillData[skillName];
+
+
+      if (
+        !data ||
+        !skillModal
+      ) {
+        return;
+      }
+
+
+      skillModalIcon.innerHTML =
+        `<i class="${data.icon}"></i>`;
+
+
+      skillModalTitle.textContent =
+        skillName;
+
+
+      skillModalDescription.textContent =
+        data.description;
+
+
+      skillModalTags.innerHTML =
+        data.tags
+          .map(
+            tag =>
+              `<span>${tag}</span>`
+          )
+          .join("");
+
+
+      skillModal.classList.add(
+        "open"
+      );
+
+
+      skillModal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+
+      document.body.style.overflow =
+        "hidden";
+
+    }
+
+
+    function closeSkillModal() {
+
+      if (!skillModal) {
+        return;
+      }
+
+
+      skillModal.classList.remove(
+        "open"
+      );
+
+
+      skillModal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+
+      document.body.style.overflow =
+        "";
+
+    }
+
+
+    skillCards.forEach(card => {
+
+      card.addEventListener(
+        "click",
+        () => {
+
+          openSkillModal(
+            card.dataset.skill
+          );
+
+        }
+      );
+
+
+      card.addEventListener(
+        "keydown",
+        event => {
+
+          if (
+            event.key === "Enter" ||
+            event.key === " "
+          ) {
+
+            event.preventDefault();
+
+            openSkillModal(
+              card.dataset.skill
+            );
+
+          }
+
+        }
+      );
+
+    });
+
+
+    document
+      .querySelectorAll(
+        "[data-modal-close]"
+      )
+      .forEach(element => {
+
+        element.addEventListener(
+          "click",
+          closeSkillModal
+        );
+
+      });
+
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          closeSkillModal();
+
+        }
+
+      }
+    );
+
+
+
+    /* =====================================================
+       KONAMI EASTER EGG
+    ====================================================== */
+
+    const secretCode = [
+
+      "ArrowUp",
+      "ArrowUp",
+      "ArrowDown",
+      "ArrowDown",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowLeft",
+      "ArrowRight"
+
+    ];
+
+
+    let secretIndex = 0;
+
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key ===
+          secretCode[secretIndex]
+        ) {
+
+          secretIndex++;
+
+
+          if (
+            secretIndex ===
+            secretCode.length
+          ) {
+
+            document.body.classList.toggle(
+              "secret-mode"
+            );
+
+
+            secretIndex = 0;
+
+
+            console.log(
+              "🌵 Modo secreto ativado."
+            );
+
+          }
+
+        } else {
+
+          secretIndex = 0;
+
+        }
+
+      }
+    );
+
+
+
+    /* =====================================================
+       TOUCH / PERFORMANCE
+    ====================================================== */
+
+    const isTouchDevice =
+      window.matchMedia(
+        "(hover: none)"
+      ).matches;
+
+
+    if (
+      isTouchDevice &&
+      hero
+    ) {
+
+      hero.style.setProperty(
+        "--mouse-x",
+        "0px"
+      );
+
+
+      hero.style.setProperty(
+        "--mouse-y",
+        "0px"
+      );
+
+    }
+
+
+
+    /* =====================================================
+       CONSOLE
+    ====================================================== */
+
+    console.log(
+      "%c🌵 LUCAS.DEV",
+      "font-size:22px;font-weight:bold;"
+    );
+
+
+    console.log(
+      "%cSistema iniciado. Bora codar.",
+      "font-size:13px;"
+    );
+
+
+    console.log(
+      "🚀 Lucas.Dev carregado com sucesso."
+    );
+
+  </script>
+
+</body>
+
+</html>
