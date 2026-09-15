@@ -2502,9 +2502,17 @@ body::before {
 @media (max-width: 650px) {
 .road {
   left: 50%;
-  bottom: -1%;
+  bottom: -8%;
   width: 55%;
-  height: 38%;
+  height: 40%;
+
+  transform:
+    translateX(-50%)
+    translate3d(
+      var(--mouse-x),
+      var(--mouse-y),
+      0
+    );
 
   clip-path: polygon(
     44% 0%,
@@ -2512,6 +2520,8 @@ body::before {
     100% 100%,
     0% 100%
   );
+
+  z-index: 2;
 }
 
 .road::after {
