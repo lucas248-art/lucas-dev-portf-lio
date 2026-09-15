@@ -3165,3 +3165,49 @@ body::before {
     transform: none;
   }
 }
+
+/* =========================================================
+   CORREÇÃO DEFINITIVA DA ESTRADA
+========================================================= */
+
+.hero .road {
+  left: 50%;
+  top: 66%;
+  bottom: auto;
+
+  width: 38%;
+  height: 42%;
+
+  z-index: 4;
+
+  transform: translateX(-50%);
+
+  clip-path: polygon(
+    46% 0%,
+    54% 0%,
+    100% 100%,
+    0% 100%
+  );
+}
+
+
+/* =========================
+   ESTRADA — MOBILE
+========================= */
+
+@media (max-width: 650px) {
+
+  .hero .road {
+    left: 50%;
+    top: 68%;
+    bottom: auto;
+
+    width: 52%;
+    height: 38%;
+
+    z-index: 4;
+
+    transform: translateX(-50%);
+  }
+
+}
