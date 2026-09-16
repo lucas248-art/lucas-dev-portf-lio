@@ -175,34 +175,29 @@ if (
   !prefersReducedMotion
 ) {
 
-  hero.addEventListener("mousemove", event => {
+ let targetX = 0;
+let targetY = 0;
+let currentX = 0;
+let currentY = 0;
 
-    const rect =
-      hero.getBoundingClientRect();
+hero.addEventListener("mousemove", event => {
+  const rect = hero.getBoundingClientRect();
 
-    const x =
-      (event.clientX - rect.left)
-      / rect.width
-      - 0.5;
+  targetX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+  targetY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+});
 
-    const y =
-      (event.clientY - rect.top)
-      / rect.height
-      - 0.5;
+function smoothParallax() {
+  currentX += (targetX - currentX) * 0.08;
+  currentY += (targetY - currentY) * 0.08;
 
-    hero.style.setProperty(
-      "--mouse-x",
-      `${x * 18}px`
-    );
+  hero.style.setProperty("--mouse-x", (currentX * 33) + "px");
+  hero.style.setProperty("--mouse-y", (currentY * 33) + "px");
 
-    hero.style.setProperty(
-      "--mouse-y",
-      `${y * 18}px`
-    );
+  requestAnimationFrame(smoothParallax);
+}
 
-  });
-
-
+smoothParallax();
   hero.addEventListener("mouseleave", () => {
 
     hero.style.setProperty(
