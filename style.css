@@ -3241,24 +3241,3 @@ body::before {
   display: none !important;
 }
 
-/*logos da formação*/
-.footer-logos {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  margin-top: 18px;
-}
-
-.footer-logos span {
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  opacity: 0.55;
-  font-weight: 600;
-}
-
-
-.footer-logos img {
-  width: 90px;
-  height: 40px;
-  object-fit: contain;
-}
